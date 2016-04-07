@@ -1,0 +1,137 @@
+<?php
+  session_start();
+
+  require('../model/database.php');
+  require "../model/accounts_db.php";
+  require "../model/courses_db.php";
+  include "partials/globalVars.php";
+
+  if (!isset ($_SESSION['firstLoad'])) {
+    // Initialize errors
+    $_SESSION['usernameError'] = "";
+    $_SESSION['passwordError'] = "";
+    $_SESSION['nameError'] = "";
+    $_SESSION['emailError'] = "";
+
+    $_SESSION['firstLoad'] = 'false';
+  }
+
+  $action = filter_input(INPUT_POST, 'action');
+  if ($action == NULL) {
+      $action = filter_input(INPUT_GET, 'action');
+      if ($action == NULL) {
+          $action = 'display_login';
+      }
+  }
+
+  switch ($action) {
+    case 'display_login':
+      $_SESSION['usernameError'] = "";
+      $_SESSION['passwordError'] = "";
+      header("Location: $loginPage");
+      break;
+
+    case 'login':
+      $username = filter_input(INPUT_POST, 'username');
+      $password = filter_input(INPUT_POST, 'password');
+      $account_credentials = validate_account($username);
+
+      if ($username == '') {
+        $_SESSION['usernameError'] = "Please enter a username.";
+      } else if (get_user($username) == '') {
+        $_SESSION['usernameError'] = "Username does not exist.";
+      }
+
+      if ($password == '') {
+        $_SESSION['passwordError'] = "Please enter a password.";
+      } else if ($account_credentials[0] == "" || $account_credentials[1] == "") {
+        $_SESSION['passwordError'] = "Incorrect password.";
+      }
+
+      if ($_SESSION['usernameError'] == "" && $_SESSION['passwordError'] == "") {
+        $_SESSION['is_valid_user'] = 'true';
+        $_SESSION['current_user'] = $username;
+        header("Location: $homePage");
+      } else {
+        header("Location: $loginPage");
+      }
+      break;
+    case 'display_signup':
+      $_SESSION['nameError'] = "";
+      $_SESSION['usernameError'] = "";
+      $_SESSION['emailError'] = "";
+      $_SESSION['passwordError'] = "";
+      header("Location: $signupPage");
+      break;
+
+    case 'signup':
+      $name = filter_input(INPUT_POST, 'name');
+      $school = filter_input(INPUT_POST, 'school');
+      $username = filter_input(INPUT_POST, 'username');
+      $email = filter_input(INPUT_POST, 'email');
+      $password = filter_input(INPUT_POST, 'password');
+
+      if ($name == '') {
+        $_SESSION['nameError'] = "Please enter a name.";
+      } else { $_SESSION['nameError'] = ""; }
+
+      if ($username == '') {
+        $_SESSION['usernameError'] = "Please enter a username.";
+      } else { $_SESSION['usernameError'] = ""; }
+
+      if ($email == '') {
+        $_SESSION['emailError'] = "Please enter a email.";
+      } else { $_SESSION['emailError'] = ""; }
+
+      if ($password == '') {
+        $_SESSION['passwordError'] = "Please enter a password.";
+      } else { $_SESSION['passwordError'] = ""; }
+
+      if ($_SESSION['nameError'] == "" && $_SESSION['usernameError'] == "" &&
+          $_SESSION['emailError'] == "" && $_SESSION['passwordError'] == "") {
+
+        add_account($name, $school, $username, $email, $password);
+        $_SESSION['is_valid_user'] = 'true';
+        $_SESSION['current_user'] = $username;
+        header("Location: $homePage");
+      } else {
+        header("Location: $signupPage");
+      }
+      break;
+
+    case 'search_courses':
+      $searchInput = filter_input(INPUT_POST, 'search_input');
+      $_SESSION['results'] = search_courses($searchInput);
+
+      header("Location: $resultsPage");
+
+      break;
+
+    case 'display_course_details':
+      $courseID = filter_input(INPUT_GET, 'courseID');
+
+      if ($courseID != "") {
+        $_SESSION['selected_course'] = get_course_details($courseID);
+        header("Location: $detailsPage");
+      }
+      break;
+
+    case 'display_settings':
+      if ($_SESSION['is_valid_user'] == 'true') {
+        header("Location: $settingsPage");
+      } else {
+        header('Location: .');
+      }
+      break;
+
+    case 'edit_name':
+      echo 'I made it';
+      break;
+
+    case 'logout':
+      $_SESSION = array();
+      session_destroy();
+      break;
+  }
+
+?>
