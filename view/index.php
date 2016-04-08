@@ -7,6 +7,9 @@
   include "partials/globalVars.php";
 
   if (!isset ($_SESSION['firstLoad'])) {
+    // Initialize cart
+    $_SESSION['course_cart'] = array();
+
     // Initialize errors
     $_SESSION['usernameError'] = "";
     $_SESSION['passwordError'] = "";
@@ -122,10 +125,6 @@
       } else {
         header('Location: .');
       }
-      break;
-
-    case 'edit_name':
-      echo 'I made it';
       break;
 
     case 'logout':

@@ -25,9 +25,9 @@
   	$statement = $db->prepare($query);
   	$statement->bindValue(':courseID', $courseID);
   	$statement->execute();
-  	$user = $statement->fetch();
+  	$course = $statement->fetch();
   	$statement->closeCursor();
-  	return $user;
+  	return $course;
   }
 
 ?>
