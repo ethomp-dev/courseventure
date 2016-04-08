@@ -25,6 +25,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `accounts`
 --
+CREATE DATABASE courselist_8016;
+USE courselist_8016;
 
 CREATE TABLE `accounts` (
   `name` varchar(9) NOT NULL,
@@ -192,53 +194,51 @@ CREATE TABLE `students` (
 --
 
 CREATE TABLE `teacher` (
-  `teacherName` varchar(34) NOT NULL,
+  `index` int(20) NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(34) NOT NULL,
+  `middleName` varchar(34),
+  `lastName` varchar(34) NOT NULL,
   `teacherID` varchar(9) NOT NULL,
   `email` varchar(34) NOT NULL,
-  `linkToPage` varchar(50) NOT NULL,
-  `teacherIndex` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`index`)
+);
 
 --
 -- Indexes for dumped tables
 --
+INSERT INTO `teacher` (`firstName`,`middleName`,`lastName`, `teacherID`, `email`) VALUES
+('Norman', 'Bruce', 'Long',41378, 'nblong@uncc.edu'),
+('Alberto','','Gonzalez',2059461,'agonza32@uncc.edu'),
+('Angelina','Asenova','Tzacheva',1944396,'aatzache@uncc.edu'),
+('Anthony','James','Kombol',919817,'tkombol@uncc.edu'),
+('Atif','','Mohammad',0,'amoham19@uncc.edu'),
+('Bei-Tseng','','Chu',81469,'billchu@uncc.edu'),
+('Cynthia','Leigh','Burke',0,'cmoore87@uncc.edu'),
+('Dai','Chun','Cheng',1735860,'dccheng@uncc.edu'),
+('Dale-Marie','Cretia','Anne Wilson',1082549,'DaleMarie.Wilson@uncc.edu'),
+('David','Casey','Wilson',253779,'davils@uncc.edu'),
+('Ehab','','Al-Shaer',1408118,'ealshaer@uncc.edu'),
+('Eleanor','L','Ritterskamp',336364,'elritter@uncc.edu'),
+('Fadi','Fuad','Moshen',0,'fmohsen@uncc.edu'),
+('Fredric','B','Williams',0,'FWilliams@uncc.edu'),
+('Harini','','Ramaprasad',0,'hramapra@uncc.edu'),
+('Heather','Richter','Lipford',1377271,'richter@uncc.edu'),
+('Iosif','Ivanovich','Yeremulk',1952803,'iiyeremu@uncc.edu'),
+('Jayne','A','Tristan',50213,'jatrista@uncc.edu'),
+('Lance','Scott','Peterman',2070741,'lspeterm@uncc.edu'),
+('Meera','','Sridhar',1936465,'msridhar@uncc.edu'),
+('Mirsad','','Hadzikadic',82114,'mirsad@uncc.edu'),
+('Mohamed','','Shehab',1665043,'mshehab@uncc.edu'),
+('Moshen','M','Dorodchi',1964428,'Mohsen.Dorodchi@uncc.edu'),
+('Saad','Dawoud','Hamdan',2090731,'shamdan@uncc.edu'),
+('Sean','E','Riley',1759479,'seriley@uncc.edu'),
+('Thomas','J','Kitrick',15459,'tjkitric@uncc.edu'),
+('Victor','Gibson','Grose',2096224,'vggrose@uncc.edu'),
+('Weichao','','Wang',1703144,'WeichaoWang@uncc.edu'),
+('William','Ray','Jarrett',1663146,'wjarret3@uncc.edu'),
+('Xi','','Niu',0,'xniu2@uncc.edu'),
+('Yaorong','','Ge',0,'yge@uncc.edu'),
+('Yong','','Ge',0,'yge1@uncc.edu'),
+('Yongge','','Wang',1512368,'yonwang@uncc.edu'),
+('Zahid','','Anwar',2077229,'zanwar@uncc.edu');
 
---
--- Indexes for table `accounts`
---
-ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`userName`);
-
---
--- Indexes for table `courses`
---
-ALTER TABLE `courses`
-  ADD PRIMARY KEY (`CRN`);
-
---
--- Indexes for table `coursestaught`
---
-ALTER TABLE `coursestaught`
-  ADD PRIMARY KEY (`CRN`);
-
---
--- Indexes for table `enrollment`
---
-ALTER TABLE `enrollment`
-  ADD PRIMARY KEY (`CRN`,`studentID`);
-
---
--- Indexes for table `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`studentID`);
-
---
--- Indexes for table `teacher`
---
-ALTER TABLE `teacher`
-  ADD PRIMARY KEY (`teacherID`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
