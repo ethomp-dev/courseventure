@@ -52,5 +52,18 @@ function coursesTaught($courseID)
 
 }
 
+function search($query)
+{
+	global $db;
+	$query = "SELECT * FROM coursestaught
+			INNER JOIN courses
+			ON courses.CRN = coursestaught.CRN
+			WHERE courses.CRN LIKE '%$query%'";
+
+	$statement = $db->prepare($query);
+	$statement->execute();
+	return $statement;
+}
+
 
 ?>
