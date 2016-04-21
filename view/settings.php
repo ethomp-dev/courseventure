@@ -4,12 +4,13 @@
 	require "../model/accounts_db.php";
 	include 'partials/globalVars.php';
 	$user = get_user($_SESSION['current_user']);
+	$hidden_password=preg_replace("|.|","*",$user['password']);
 ?>
 <!doctype html>
 <html lang="en">
 	<head>
 		<title><?php echo $siteTitle; ?> | Account Settings</title>
-		<?php include 'partials/preBodyHead.php'; ?>
+		<?php include 'partials/preBodyHead.php';?>
 	</head>
 	<body>
 		<div class="grid-frame">
@@ -60,7 +61,18 @@
 							<li><a href="#">
 								<table>
 									<td width="150px"><strong>Password</strong></td>
-									<td width="300px"><?php echo $user['password']; ?></td>
+									<td width="300px" input type="password"><?php echo $hidden_password; ?></td>
+	              	<td width="75px">
+										<span class="block-list-label">
+											<img src="<?php echo $pathToIcons; ?>pencil.svg" alt="edit"/>
+										</span>
+									</td>
+								</table>
+							</a></li>
+		<li><a href="#">
+								<table>
+									<td width="150px"><strong>Email</strong></td>
+									<td width="300px"><?php echo $user['email']; ?></td>
 	              	<td width="75px">
 										<span class="block-list-label">
 											<img src="<?php echo $pathToIcons; ?>pencil.svg" alt="edit"/>

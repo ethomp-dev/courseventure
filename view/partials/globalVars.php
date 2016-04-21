@@ -3,6 +3,7 @@
   $siteTitle = "Course Venture";
 
   // Page Names
+  $gmailsample = "gmail-sample.php";
   $loginPage = "login.php";
   $signupPage = "signup.php";
   $homePage = "home.php";
@@ -13,6 +14,8 @@
   $userHistoryPage = "scheduleHistory.php";
   $settingsPage = "settings.php";
   $helpPage = "help.php";
+  $helpSubmit = "helpSubmit.php";
+  $gmailSMTP = "gmailSMTP.php";
   $confirmationPage = "confirmation.php";
 
   // File Paths
