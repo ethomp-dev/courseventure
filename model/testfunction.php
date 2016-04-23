@@ -58,7 +58,12 @@ function search($query)
 	$query = "SELECT * FROM coursestaught
 			INNER JOIN courses
 			ON courses.CRN = coursestaught.CRN
-			WHERE courses.CRN LIKE '%$query%'";
+			INNER JOIN teacher
+			ON teacher.teacherID = coursestaught.teacherID
+			WHERE (courses.CRN LIKE '%$query%' OR 
+					courses.subject LIKE '%$query%' OR
+					courses.location LIKE '%$query%' OR
+					teacher.lastName like '%$query%')";
 
 	$statement = $db->prepare($query);
 	$statement->execute();
