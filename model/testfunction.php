@@ -62,7 +62,11 @@ function search($query)
 			ON teacher.teacherID = coursestaught.teacherID
 			WHERE (courses.CRN LIKE '%$query%' OR 
 					courses.subject LIKE '%$query%' OR
+					courses.course LIKE '%$query%' OR
 					courses.location LIKE '%$query%' OR
+					courses.title LIKE '%$query%' OR
+					teacher.firstName LIKE '%$query%' OR
+					teacher.middleName LIKE '%$query%' OR
 					teacher.lastName like '%$query%')";
 
 	$statement = $db->prepare($query);
