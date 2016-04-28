@@ -1,3 +1,39 @@
+<?php $eightSlots = array('08:00','M','T','W','R','F');
+      $nineSlots = array('09:30','M','T','W','R','F');
+      $elevenSlots = array('11:00','M','T','W','R','F');
+      $twelveSlots = array('12:30','M','T','W','R','F');
+      $twoSlots = array('02:00','M','T','W','R','F');
+      $threeSlots = array('03:30','M','T','W','R','F');
+      $fiveSlots = array('05:00','M','T','W','R','F');
+      $sixSlots = array('06:30','M','T','W','R','F');
+
+  function fillCalendarSlots($timeSlots) {
+    foreach ($timeSlots as $slot) {
+      if (strpos($slot, ':') !== false) {
+        echo '<td class="time">'.$slot.'</td>';
+        $currentTime = $slot;
+      } else {
+        $dayFound = false;
+
+        foreach ($_SESSION['course_cart'] as $item) {
+          $course = get_course_details($item);
+          $days = str_split($course['days']);
+          $startTime = substr($course['time'], 0, 5);
+          foreach ($days as $day) {
+            if ($day == $slot && $startTime == $currentTime) {
+              echo '<td>'.$course['subject']." ".$course['course'].'</td>';
+              $dayFound = true;
+            }
+          }
+        }
+
+        if ($dayFound == false) {
+          echo '<td></td>';
+        }
+      }
+    }
+  }
+?>
 <table id="calendar">
   <thead>
     <!--<tr>
@@ -13,69 +49,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td class="time">8:00</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday">ITIS 1212</td>
-      <td class="block-wednesday"></td>
-      <td class="block-thursday">ITIS 1212</td>
-      <td class="block-friday"></td>
-    </tr>
-    <tr>
-      <td class="time">9:30</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday"></td>
-      <td class="block-wednesday"></td>
-      <td class="block-thursday"></td>
-      <td class="block-friday"></td>
-    </tr>
-    <tr>
-      <td class="time">11:00</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday"></td>
-      <td class="block-wednesday"></td>
-      <td class="block-thursday"></td>
-      <td class="block-friday"></td>
-    </tr>
-    <tr>
-      <td class="time">12:30</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday">ITIS 2110</td>
-      <td class="block-wednesday"></td>
-      <td class="block-thursday"></td>
-      <td class="block-friday"></td>
-    </tr>
-    <tr>
-      <td class="time">2:00</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday"></td>
-      <td class="block-wednesday"></td>
-      <td class="block-thursday"></td>
-      <td class="block-friday"></td>
-    </tr>
-    <tr>
-      <td class="time">3:30</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday"></td>
-      <td class="block-wednesday">ITIS 3105</td>
-      <td class="block-thursday"></td>
-      <td class="block-friday">ITIS 3105</td>
-    </tr>
-    <tr>
-      <td class="time">5:00</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday"></td>
-      <td class="block-wednesday"></td>
-      <td class="block-thursday"></td>
-      <td class="block-friday"></td>
-    </tr>
-    <tr>
-      <td class="time">6:30</td>
-      <td class="block-monday"></td>
-      <td class="block-tuesday"></td>
-      <td class="block-wednesday"></td>
-      <td class="block-thursday"></td>
-      <td class="block-friday"></td>
-    </tr>
+    <tr><?php fillCalendarSlots($eightSlots);?></tr>
+    <tr><?php fillCalendarSlots($nineSlots);?></tr>
+    <tr><?php fillCalendarSlots($elevenSlots);?></tr>
+    <tr><?php fillCalendarSlots($twelveSlots);?></tr>
+    <tr><?php fillCalendarSlots($twoSlots);?></tr>
+    <tr><?php fillCalendarSlots($threeSlots);?></tr>
+    <tr><?php fillCalendarSlots($fiveSlots);?></tr>
+    <tr><?php fillCalendarSlots($sixSlots);?></tr>
   </tbody>
 </table>

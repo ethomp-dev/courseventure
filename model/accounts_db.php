@@ -67,4 +67,23 @@ function get_user_email($email) {
 	return $email;
 }
 
+function update_user($name, $school, $userName, $password, $email) {
+	global $db;
+	$query = 'UPDATE accounts
+						SET name = :name,
+								school = :school,
+								email = :email,
+								password = :password
+						WHERE userName = :userName';
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(':name', $name);
+	$statement->bindValue(':school', $school);
+	$statement->bindValue(':userName', $userName);
+	$statement->bindValue(':email', $email);
+	$statement->bindValue(':password', $password);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
 ?>

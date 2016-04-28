@@ -1,4 +1,15 @@
-<?php include 'partials/globalVars.php'; ?>
+<?php
+  require('../model/database.php');
+  require "../model/courses_db.php";
+  session_start();
+
+  $cartItems = array();
+
+  foreach ($_SESSION['course_cart'] as $item) {
+    array_push($cartItems, get_course_details($item));
+  }
+  include 'partials/globalVars.php';
+?>
 <!doctype html>
 <html lang="en">
   <head>

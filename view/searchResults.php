@@ -1,7 +1,8 @@
-<?php  
+<?php
   require('../model/database.php');
   require "../model/courses_db.php";
-  session_start(); 
+  session_start();
+  
   if (isset($_GET["searchInput"]))
   {
     $searchInput = $_GET["searchInput"];
@@ -11,7 +12,7 @@
     $searchInput = "";
   }
   $searchResults = search_courses($searchInput);
-  include 'partials/globalVars.php'; 
+  include 'partials/globalVars.php';
 ?>
 <!doctype html>
 <html lang="en">

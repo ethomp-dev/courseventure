@@ -2,15 +2,23 @@
 	session_start();
 	require('../model/database.php');
 	require "../model/accounts_db.php";
+  require "../model/courses_db.php";
 	include 'partials/globalVars.php';
 	$user = get_user($_SESSION['current_user']);
 	$hidden_password=preg_replace("|.|","*",$user['password']);
 
 	function validate() {
+		$user = get_user($_SESSION['current_user']);
+		$name = filter_input(INPUT_POST, 'name');
+		$school = filter_input(INPUT_POST, 'school');
+		$username = $user['userName'];
+		$email = filter_input(INPUT_POST, 'email');
+		$password = filter_input(INPUT_POST, 'password');
+		update_user($name, $school, $username, $password, $email);
 		header("Location: settings.php");
 	}
 
-	if (isset($_GET['finishedEditing'])) {
+	if (isset($_POST['finishedEditing'])) {
 		validate();
 	}
 ?>
@@ -31,84 +39,62 @@
 				<!-- Body -->
 				<div class="grid-container">
 					<h1 class="main-heading">Account Settings</h1>
-					<table id="settings">
-						<tr>
-							<td width="200px"><strong>Name</strong></td>
-							<td width="300px"><?php echo $user['name']; ?></td>
-	          	<td width="75px" style="text-align:center;">
-								<a class="editIcon"><img src="<?php echo $pathToIcons; ?>pencil.svg" alt="edit"/></a>
-								<a href="settings.php?finishedEditing=true"><i style="color:#62A989" class="fa fa-floppy-o"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td><strong>School</strong></td>
-							<td><?php echo $user['school']; ?></td>
-            	<td style="text-align:center;">
-								<a class="editIcon"><img src="<?php echo $pathToIcons; ?>pencil.svg" alt="edit"/></a>
-								<a href="settings.php?finishedEditing=true"><i style="color:#62A989" class="fa fa-floppy-o"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td><strong>Username</strong></td>
-							<td><?php echo $user['userName']; ?></td>
-							<td style="text-align:center;">
-								<a class="editIcon"><img src="<?php echo $pathToIcons; ?>pencil.svg" alt="edit"/></a>
-								<a href="settings.php?finishedEditing=true"><i style="color:#62A989" class="fa fa-floppy-o"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td><strong>Password</strong></td>
-							<td><?php echo $hidden_password; ?></td>
-							<td style="text-align:center;">
-								<a class="editIcon"><img src="<?php echo $pathToIcons; ?>pencil.svg" alt="edit"/></a>
-								<a href="settings.php?finishedEditing=true"><i style="color:#62A989" class="fa fa-floppy-o"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td><strong>Email</strong></td>
-							<td><?php echo $user['email']; ?></td>
-							<td style="text-align:center;">
-								<a class="editIcon"><img src="<?php echo $pathToIcons; ?>pencil.svg" alt="edit"/></a>
-								<a href="settings.php?finishedEditing=true"><i style="color:#62A989" class="fa fa-floppy-o"></i></a>
-							</td>
-						</tr>
-					</table>
-					<div class="align-center grid-block">
-						<a class="button primary large" href="<?php echo $loginPage; ?>">LOG OUT</a>
-					</div>
+					<form action="<?php echo $settingsPage; ?>" method="post">
+						<input type="hidden" name="finishedEditing" value="true"/>
+						<table id="settingsTable">
+							<tr>
+								<td width="200px"><strong>Name</strong></td>
+								<td width="300px"><span><?php echo $user['name']; ?></span>
+									<input type="text" name="name" class="hide"/></td>
+							</tr>
+							<tr>
+								<td><strong>School</strong></td>
+								<td><span><?php echo $user['school']; ?></span>
+									<input type="text" name="school" class="hide"/></td>
+							</tr>
+							<tr>
+								<td><strong>Username</strong></td>
+								<td><span><?php echo $user['userName']; ?></span>
+									<input type="text" name="userName" class="hide" disabled=""/></td>
+							</tr>
+							<tr>
+								<td><strong>Password</strong></td>
+								<td><span><?php echo $hidden_password; ?></span>
+									<input type="text" name="password" class="hide"/></td>
+							</tr>
+							<tr>
+								<td><strong>Email</strong></td>
+								<td><span><?php echo $user['email']; ?></span>
+									<input type="text" name="email" class="hide"/></td>
+							</tr>
+						</table>
+						<div id="editButtons" class="align-center grid-block">
+							<a class="button primary large" onclick="editSettings()">EDIT SETTINGS</a>
+						</div>
+						<div id="saveButtons" class="align-center grid-block hide">
+							<input type="submit" class="button primary large" value="SAVE CHANGES"/>
+							<a class="button secondary large" href="<?php echo $settingsPage; ?>">CANCEL</a>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 
 		<script>
+			function editSettings() {
+				var $table = $('#settingsTable');
 
-			$(function() {
-				$('.fa-floppy-o').hide();
-			});
-
-			$('.editIcon').on('click', function() {
-				var $pencil = $(this);
-
-				$('a.editIcon img').each(function() {
-					if ($(this) != $pencil) {
-						$(this).css('opacity', '.5');
-						$(this).parent().addClass('disabled').removeClass('editIcon');
-					}
+				$('#settingsTable tr td:nth-of-type(2)').each(function() {
+					$cell = $(this);
+					var settingText = $cell.find('span').text();
+					$cell.find('span').addClass('hide');
+					$cell.find('input').removeClass('hide').val(settingText);
 				})
 
-				// Convert the text to inputbox
-				var $settingCell = $pencil.parent().siblings('td:nth-of-type(2)');
-				var settingText = $settingCell.text();
-				$settingCell.html('<input type="text" value="' + settingText + '"/>');
+				$('#editButtons').addClass('hide');
+				$('#saveButtons').removeClass('hide');
 
-				// Change the icon from pencil to save
-				$pencil.find('img').hide();
-				$pencil.siblings().find('i').show();
-			});
-
-			$('.disabled').on("click", function (e) {
-					e.preventDefault();
-			});
+			}
 		</script>
 	</body>
 </html>

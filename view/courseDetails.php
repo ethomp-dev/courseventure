@@ -1,17 +1,37 @@
-<?php  
+<?php
   require('../model/database.php');
   require "../model/courses_db.php";
-  session_start(); 
-  if (isset($_GET["courseID"]))
-  {
+  session_start();
+
+  include 'partials/globalVars.php';
+
+  if (isset($_GET["courseID"])) {
     $courseID = $_GET["courseID"];
-  }
-  else
-  {
+  } else {
     $courseID = "";
   }
   $course = get_course_details($courseID);
-  include 'partials/globalVars.php'; 
+
+  if (isset($_GET["addedSuccessful"])) {
+    $addedSuccessful = $_GET["addedSuccessful"];
+  } else {
+    $addedSuccessful = "";
+  }
+
+  function add_to_cart() {
+    $courseID = filter_input(INPUT_POST, "coursesTaughtID");
+
+    if (in_array($courseID, $_SESSION['course_cart'])) {
+        header("Location: $detailsPage?courseID=$courseID&addedSuccessful=false");
+        return;
+    }
+    array_push($_SESSION['course_cart'], $courseID);
+    header("Location: $detailsPage?courseID=$courseID&addedSuccessful=true");
+	}
+
+	if (isset($_POST['coursesTaughtID'])) {
+		add_to_cart();
+	}
 ?>
 <!doctype html>
 <html lang="en">
@@ -28,9 +48,15 @@
         <!-- Top Bar -->
         <?php include 'partials/topMenu.php'; ?>
         <!-- Course Added Successfully Alert -->
+        <input type="hidden" id="addedSuccessful" value="<?php echo $addedSuccessful; ?>"/>
         <div id="addedToCart" data-alert class="alert-box success radius hide align-center">
           Course has been added to cart. <a href="<?php echo $cartPage; ?>">View</a>
           <a href="#" class="close" onclick="closeAlert('addedToCart')">&times;</a>
+        </div>
+        <!-- Course Add Failed Alert -->
+        <div id="failedToAdd" data-alert class="alert-box warning radius hide align-center">
+          Course already added to cart.
+          <a href="#" class="close" onclick="closeAlert('failedToAdd')">&times;</a>
         </div>
         <!-- Body -->
         <div class="grid-block align-center shrink space-top">
@@ -43,16 +69,19 @@
             <h3><strong><?php echo $course['subject']." ".$course['course']." ".$course['title']; ?></strong></h3>
             <h4><span class="text-light">taught by </span>
               <a href="http://www.ratemyprofessors.com/ShowRatings.jsp?tid=<?php echo $course['teacherID']; ?>" target="_blank"
-                class="underline"><?php echo $course['firstName']. " ".$course['lastName'] ; ?></a>
+                class="underline"><?php echo $course['firstName']." ".$course['middleName']." ".$course['lastName'] ; ?></a>
               <a href="mailto:<?php echo $course['email']; ?>" target="_blank"><i class="fa fa-envelope-o"></i></a>
             </h4>
             <h4><span class="text-light">located in </span><?php echo $course['location']; ?></h4>
             <h3><strong><?php echo $course['credits']; ?> HRS</strong></h3>
           </div>
           <div class="medium-2 grid-block vertical">
-            <span>
-              <a class="button secondary large" href="<?php echo'.?action=add_to_cart&coursesTaughtID='.$courseID;?> " onclick="showAlert('addedToCart')">ADD TO CART</a>
-            </span>
+            <form action="<?php echo $detailsPage; ?>" method="post">
+              <span>
+                <input type="hidden" name="coursesTaughtID" value="<?php echo $courseID; ?>"/>
+                <input type="submit" class="button secondary large" value="ADD TO CART"/>
+              </span>
+            </form>
           </div>
         </div>
         <div class="grid-block shrink">
@@ -70,5 +99,15 @@
         </div>
       </div>
     </div>
+
+    <script>
+      $(function() {
+        if ($('#addedSuccessful').val() == 'true') {
+          showAlert('addedToCart');
+        } else if ($('#addedSuccessful').val() == 'false') {
+          showAlert('failedToAdd');
+        }
+      })
+    </script>
   </body>
 </html>

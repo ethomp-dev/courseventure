@@ -8,9 +8,6 @@
   include "partials/globalVars.php";
 
   if (!isset ($_SESSION['firstLoad'])) {
-    // Initialize cart
-    
-
     // Initialize errors
     $_SESSION['usernameError'] = "";
     $_SESSION['passwordError'] = "";
@@ -18,8 +15,13 @@
     $_SESSION['emailError'] = "";
 
     $_SESSION['firstLoad'] = 'false';
+
+    // Initialize cart
     $_SESSION['course_cart'] = array();
   }
+
+  // Initialize regular variables
+  $addedSuccessful = false;
 
   $action = filter_input(INPUT_POST, 'action');
   if ($action == NULL) {
@@ -129,15 +131,13 @@
     case 'add_to_cart':
       $courseID = filter_input(INPUT_GET, "coursesTaughtID");
       //$_SESSION['course_cart'] = array();
-      if (in_array($courseID, $_SESSION['course_cart']))
-      {
-
-          echo $courseID;
+      if (in_array($courseID, $_SESSION['course_cart'])) {
+          echo $courseID." already exists.";
           break;
       }
-      $_SESSION['course_cart'] = $courseID;
-      echo $_SESSION['course_cart'];
-      //echo $courseID;
+      array_push($_SESSION['course_cart'], $courseID);
+      $addedSuccessful = true;
+      header("Location: $detailsPage");
       break;
 
     case 'logout':

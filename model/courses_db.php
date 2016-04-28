@@ -8,7 +8,7 @@ function search_courses($query)
       ON courses.CRN = coursestaught.CRN
       INNER JOIN teacher
       ON teacher.teacherID = coursestaught.teacherID
-      WHERE (courses.CRN LIKE '%$query%' OR 
+      WHERE (courses.CRN LIKE '%$query%' OR
           courses.subject LIKE '%$query%' OR
           courses.course LIKE '%$query%' OR
           courses.location LIKE '%$query%' OR
@@ -56,7 +56,7 @@ function search_courses($query)
   function get_course_details($courseID) {
     global $db;
 
-    $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location, courses.credits, courses.days, courses.time, teacher.firstName, teacher.lastName, teacher.email, teacher.teacherID
+    $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location, courses.credits, courses.days, courses.time, teacher.firstName, teacher.middleName, teacher.lastName, teacher.email, teacher.teacherID
           FROM coursesTaught
           INNER JOIN courses
           ON courses.CRN = coursestaught.CRN
@@ -66,7 +66,6 @@ function search_courses($query)
 
     $statement = $db->prepare($query);
     $statement->bindValue(":courseID", $courseID);
-
     $statement->execute();
     $details = $statement->fetch();
     $statement->closeCursor();

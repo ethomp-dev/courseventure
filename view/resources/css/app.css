@@ -404,17 +404,17 @@ input[type="search"].search-large {
 
 /* Settings Styles */
 
-#settings {
+#settingsTable {
   font-size: 1.75rem;
   margin-bottom: 20px;
 }
 
-#settings td {
+#settingsTable td {
   padding: 10px 0px;
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
 }
 
-#settings tr:hover {
+#settingsTable tr:hover {
   background-color: #f4f4f4;
 }

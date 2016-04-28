@@ -1,4 +1,9 @@
-<?php include 'partials/globalVars.php'; ?>
+<?php
+  require('../model/database.php');
+  require "../model/courses_db.php";
+  session_start();
+  include 'partials/globalVars.php';
+?>
 <!doctype html>
 <html lang="en">
    <head>
@@ -16,11 +21,11 @@
             <div class="grid-container">
                <h1 class="main-heading">Contact Us</h1>
 			   <h4 class = "main-heading">Email submitted. We will respond as soon as possible.</h4>
-					
+
 						<div class="align-center grid-block">
 						<a class="button secondary large" href="<?php echo $homePage; ?>">Return to Home</a>
 						</div>
-					
+
             </div>
          </div>
       </div>

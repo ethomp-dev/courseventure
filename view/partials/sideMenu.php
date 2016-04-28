@@ -10,7 +10,19 @@
   <div id="sideMenu-lower" class="grid-content">
     <ul id="sideMenu-lower-list" class="vertical menu-bar">
       <li><a href="<?php echo $cartPage; ?>"><img src="<?php echo $pathToIcons; ?>cart.svg" alt="Cart"/>&nbsp;VIEW CART</a></li>
-      <li>(3) COURSES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15 h</li>
+      <li>
+        <?php
+          // TODO: Correctly calculate credit hours
+          $numCourses = 0;
+          $creditHours = 0;
+          foreach ($_SESSION['course_cart'] as $item) {
+            $item = get_course_details($item);
+            $numCourses += 1;
+            $creditHours += $item['credits'];
+          }
+          echo "(".$numCourses.") COURSES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$creditHours." h";
+        ?>
+      </li>
       <hr/>
       <li><a href="<?php echo '.?action=display_settings' ; ?>"><img src="<?php echo $pathToIcons; ?>user.svg" alt="User"/>&nbsp;MY ACCOUNT</a></li>
       <li><a href="<?php echo $userHistoryPage; ?>"><img src="<?php echo $pathToIcons; ?>calendar.svg" alt="Calendar"/>&nbsp;MY CALENDARS</a></li>

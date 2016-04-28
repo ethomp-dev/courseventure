@@ -1,7 +1,8 @@
-<?php 
+<?php
 	session_start();
 	require '../model/database.php';
 	require '../model/accounts_db.php';
+  require "../model/courses_db.php";
 	include 'partials/globalVars.php';
 	$user = get_user($_SESSION['current_user']);
 ?>

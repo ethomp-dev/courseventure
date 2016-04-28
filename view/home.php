@@ -1,4 +1,9 @@
-<?php include 'partials/globalVars.php'; ?>
+<?php
+  require('../model/database.php');
+  require "../model/courses_db.php";
+  session_start();
+  include 'partials/globalVars.php'; 
+?>
 <!doctype html>
 <html lang="en">
   <head>
