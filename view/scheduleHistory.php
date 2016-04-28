@@ -18,23 +18,20 @@
           <h1 class="main-heading">Schedule History</h1>
           <section class="block-list wide">
             <ul>
-              <li><a href="#">
+              <li><a href="<?php echo $userHistoryDetailPage; ?>">
                 <i class="fa fa-calendar fa-2x"></i>
                 <strong>Spring 2015</strong>
-                <span class="text-light">created on 11/23/2014</span>
-                <span class="block-list-label">15 HRS</span>
+                <span class="text-light">created on 11/23/2014 (15 HRS)</span>
               <li><a href="#">
                 <i class="fa fa-calendar fa-2x"></i>
                 <strong>Fall 2015</strong>
-                <span class="text-light">created on 11/23/2014</span>
-                <span class="block-list-label">15 HRS</span>
+                <span class="text-light">created on 11/23/2014 (15 HRS)</span>
               <li><a href="#">
                 <i class="fa fa-calendar fa-2x"></i>
                 <strong>Spring 2016</strong>
-                <span class="text-light">created on 11/23/2014</span>
-                <span class="block-list-label">12 HRS</span>
+                <span class="text-light">created on 11/23/2014 (12 HRS)</span>
               <li><a href="#">&nbsp;<span class="block-list-label">
-                <strong>SUBTOTAL: 42 HRS</strong></span></a></li>
+                <strong>TOTAL: 42 HRS</strong></span></a></li>
             </ul>
           </section>
         </div>

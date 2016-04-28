@@ -1,6 +1,6 @@
 <?php
 
-  $dsn = 'mysql:host=localhost;dbname=courselist_8016';
+  $dsn = 'mysql:host=localhost;dbname=courseventure';
   $username = 'root';
   $password = '';
 

@@ -18,27 +18,15 @@
           <h1 class="main-heading">Course Cart</h1>
           <div class="align-right grid-block">
             <ul class="button-group segmented">
-              <li><a href="#"><i class="fa fa-calendar"></i></a></li>
-              <li class="is-active"><a href="#"><i class="fa fa-bars"></i></a></li>
+              <li id="calendarButton" class="is-active"><a href="#" onclick="changeView('calendar')"><i class="fa fa-calendar"></i></a></li>
+              <li id="listButton"><a href="#" onclick="changeView('list')"><i class="fa fa-bars"></i></a></li>
             </ul>
           </div>
-          <section class="block-list wide">
-            <ul>
-              <li><a href="#">
-                <strong>ITIS 1212 Media Programming</strong>
-                <span class="block-list-label">3 HRS</span>
-                <br/>Bruce Long</a></li>
-              <li><a href="#">
-                <strong>ITIS 3105 Server Side Applications and Databases</strong>
-                <span class="block-list-label">3 HRS</span>
-                <br/>Dale Marie Wilson</a></li></a></li>
-              <li><a href="#">
-                <strong>ITIS 2110 IT Infrastructure</strong>
-                <span class="block-list-label">3 HRS</span>
-                <br/>Tony Kombol</a></li></a></li>
-              <li><a href="#">&nbsp;<span class="block-list-label">
-                <strong>SUBTOTAL: 15 HRS</strong></span></a></li>
-            </ul>
+          <section id="calendarContent">
+            <?php include 'partials/calendarView.php'; ?>
+          </section>
+          <section id="listContent" class="block-list wide hide">
+            <?php include 'partials/listView.php'; ?>
           </section>
           <div class="align-right grid-block">
             <a class="button primary large" href="<?php echo $confirmationPage; ?>">CHECKOUT</a>
@@ -46,5 +34,31 @@
         </div>
       </div>
     </div>
+
+    <script>
+
+      $(function() {
+        $('#calendar tbody tr td:not(".time")').each(function() {
+          if ($(this).html() != "") {
+            $(this).css({'background-color':'rgb(138, 181, 161)', 'color':'white'});
+          }
+        });
+      });
+
+      function changeView(viewType) {
+        switch (viewType) {
+          case 'list':
+            $('#listContent').removeClass('hide');
+            $('#calendarContent').addClass('hide');
+            $('#calendarButton').removeClass('is-active');
+            break;
+          case 'calendar':
+            $('#listContent').addClass('hide');
+            $('#calendarContent').removeClass('hide');
+            $('#listButton').removeClass('is-active');
+            break;
+        }
+      }
+    </script>
   </body>
 </html>

@@ -24,7 +24,7 @@
             <div class="grid-container">
               <label>
                 <span class="inline-label">
-                  <input name="search_input" type="search" placeholder="Search" class="search-large"/>
+                  <input name="search_input" type="search" placeholder="Search" class="search-large" autofocus=""/>
                   <input type="submit" class="fa fa-2x button light search-large" value="&#xf002;"></input>
                 </span>
               </label>

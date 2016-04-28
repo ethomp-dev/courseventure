@@ -19,7 +19,7 @@
   			      <label class="inline">Name</label>
             </div>
             <div class="small-3 grid-block">
-				      <input name="name" type="text" />
+				      <input name="name" type="text" autofocus=""/>
     			  </div>
     			</div>
           <div class="small-offset-5 small-3 grid-block noscroll">

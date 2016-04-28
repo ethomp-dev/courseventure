@@ -21,15 +21,21 @@
         <!-- Body -->
         <div class="grid-block align-center shrink space-top">
           <div class="medium-2 grid-block">
-            <span><img src="<?php echo $pathToImg; ?>map.jpg" alt="Map"/></span>
+            <span><a href="https://facilities.uncc.edu/sites/facilities.uncc.edu/files/media/Maps/Uncc_Campus_Map.pdf" target="_blank">
+              <img src="<?php echo $pathToImg; ?>map.jpg" alt="Map"/></a>
+            </span>
           </div>
           <div class="medium-6 grid-block vertical space-left">
             <h3><strong><?php echo $course['subject']." ".$course['course']." ".$course['title']; ?></strong></h3>
-            <h4><span class="text-light">taught by </span><?php echo $course['instructor']; ?></h4>
+            <h4><span class="text-light">taught by </span>
+              <a href="http://www.ratemyprofessors.com/ShowRatings.jsp?tid=<?php echo $course['instructorID']; ?>" target="_blank"
+                class="underline"><?php echo $course['instructor']; ?></a>
+              <a href="mailto:<?php echo $course['instructorEmail']; ?>" target="_blank"><i class="fa fa-envelope-o"></i></a>
+            </h4>
             <h4><span class="text-light">located in </span><?php echo $course['location']; ?></h4>
             <h3><strong><?php echo $course['credits']; ?> HRS</strong></h3>
           </div>
-          <div class="medium-2 grid-block">
+          <div class="medium-2 grid-block vertical">
             <span>
               <a class="button secondary large" href="#" onclick="showAlert('addedToCart')">ADD TO CART</a>
             </span>

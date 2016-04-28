@@ -19,7 +19,7 @@
   			      <label class="inline">Username</label>
             </div>
             <div class="small-3 grid-block">
-				      <input name="username" type="text" />
+				      <input name="username" type="text" autofocus=""/>
     			  </div>
     			</div>
           <div class="small-offset-5 small-3 grid-block noscroll">
@@ -47,9 +47,6 @@
           </div>
           <div class="grid-block align-center">
     			  <p>Don't have an account? <a href="<?php echo '.?action=display_signup' ?>">Sign Up!</a></p>
-    			</div>
-          <div class="grid-block align-center">
-    			  <p><a href="<?php session_destroy(); ?>">Destroy</a></p>
     			</div>
     		</form>
       </div>

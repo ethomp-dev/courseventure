@@ -1,7 +1,6 @@
 <?php
 
-function get_teachers()
-{
+function get_teachers() {
 
 	global $db;
 
@@ -16,8 +15,7 @@ function get_teachers()
 	return $statement;
 }
 
-function return_coursesTaught()
-{
+function return_coursesTaught() {
 	global $db;
 
 	$query = 'SELECT courses.CRN, courses.course, courses.subject, teacher.firstName, teacher.lastName

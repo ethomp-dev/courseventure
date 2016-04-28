@@ -12,6 +12,7 @@
   $detailsPage = "courseDetails.php";
   $cartPage = "courseCart.php";
   $userHistoryPage = "scheduleHistory.php";
+  $userHistoryDetailPage = "scheduleHistoryDetail.php";
   $settingsPage = "settings.php";
   $helpPage = "help.php";
   $helpSubmit = "helpSubmit.php";
