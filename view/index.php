@@ -1,6 +1,7 @@
 <?php
+  $lifetime = 60 * 60 * 24 * 3;
+  session_set_cookie_params($lifetime, "/");
   session_start();
-
   require('../model/database.php');
   require "../model/accounts_db.php";
   require "../model/courses_db.php";
@@ -8,7 +9,7 @@
 
   if (!isset ($_SESSION['firstLoad'])) {
     // Initialize cart
-    $_SESSION['course_cart'] = array();
+    
 
     // Initialize errors
     $_SESSION['usernameError'] = "";
@@ -17,6 +18,7 @@
     $_SESSION['emailError'] = "";
 
     $_SESSION['firstLoad'] = 'false';
+    $_SESSION['course_cart'] = array();
   }
 
   $action = filter_input(INPUT_POST, 'action');
@@ -104,9 +106,7 @@
 
     case 'search_courses':
       $searchInput = filter_input(INPUT_POST, 'search_input');
-      $_SESSION['results'] = search_courses($searchInput);
-
-      header("Location: $resultsPage");
+      header("Location: $resultsPage?searchInput=$searchInput");
 
       break;
 
@@ -114,8 +114,8 @@
       $courseID = filter_input(INPUT_GET, 'courseID');
 
       if ($courseID != "") {
-        $_SESSION['selected_course'] = get_course_details($courseID);
-        header("Location: $detailsPage");
+        //$_SESSION['selected_course'] = get_course_details($courseID);
+        header("Location: $detailsPage?courseID=$courseID");
       }
       break;
 
@@ -125,6 +125,19 @@
       } else {
         header('Location: .');
       }
+      break;
+    case 'add_to_cart':
+      $courseID = filter_input(INPUT_GET, "coursesTaughtID");
+      //$_SESSION['course_cart'] = array();
+      if (in_array($courseID, $_SESSION['course_cart']))
+      {
+
+          echo $courseID;
+          break;
+      }
+      $_SESSION['course_cart'] = $courseID;
+      echo $_SESSION['course_cart'];
+      //echo $courseID;
       break;
 
     case 'logout':

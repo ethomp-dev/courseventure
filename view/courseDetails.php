@@ -1,4 +1,18 @@
-<?php session_start(); $course = $_SESSION['selected_course']; include 'partials/globalVars.php'; ?>
+<?php  
+  require('../model/database.php');
+  require "../model/courses_db.php";
+  session_start(); 
+  if (isset($_GET["courseID"]))
+  {
+    $courseID = $_GET["courseID"];
+  }
+  else
+  {
+    $courseID = "";
+  }
+  $course = get_course_details($courseID);
+  include 'partials/globalVars.php'; 
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,16 +42,16 @@
           <div class="medium-6 grid-block vertical space-left">
             <h3><strong><?php echo $course['subject']." ".$course['course']." ".$course['title']; ?></strong></h3>
             <h4><span class="text-light">taught by </span>
-              <a href="http://www.ratemyprofessors.com/ShowRatings.jsp?tid=<?php echo $course['instructorID']; ?>" target="_blank"
-                class="underline"><?php echo $course['instructor']; ?></a>
-              <a href="mailto:<?php echo $course['instructorEmail']; ?>" target="_blank"><i class="fa fa-envelope-o"></i></a>
+              <a href="http://www.ratemyprofessors.com/ShowRatings.jsp?tid=<?php echo $course['teacherID']; ?>" target="_blank"
+                class="underline"><?php echo $course['firstName']. " ".$course['lastName'] ; ?></a>
+              <a href="mailto:<?php echo $course['email']; ?>" target="_blank"><i class="fa fa-envelope-o"></i></a>
             </h4>
             <h4><span class="text-light">located in </span><?php echo $course['location']; ?></h4>
             <h3><strong><?php echo $course['credits']; ?> HRS</strong></h3>
           </div>
           <div class="medium-2 grid-block vertical">
             <span>
-              <a class="button secondary large" href="#" onclick="showAlert('addedToCart')">ADD TO CART</a>
+              <a class="button secondary large" href="<?php echo'.?action=add_to_cart&coursesTaughtID='.$courseID;?> " onclick="showAlert('addedToCart')">ADD TO CART</a>
             </span>
           </div>
         </div>

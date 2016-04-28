@@ -49,6 +49,23 @@ function coursesTaught($courseID)
 	return $statement;
 
 }
+  function get_course_details($courseID) {
+  	global $db;
+
+  	$query = 'SELECT courses.CRN, courses.course, courses.subject, teacher.firstName, teacher.lastName
+  				FROM coursesTaught
+  				INNER JOIN courses
+  				ON courses.CRN = coursestaught.CRN
+  				INNER JOIN teacher
+  				ON teacher.teacherID = coursestaught.teacherID
+  				WHERE coursestaughtID = :courseID';
+
+  	$statement = $db->prepare($query);
+  	$statement->bindValue(":courseID", $courseID);
+  	$statement->execute();
+  	return $statement;
+
+  }
 
 function search($query)
 {
