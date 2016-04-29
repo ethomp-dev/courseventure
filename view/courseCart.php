@@ -59,21 +59,25 @@
         <!-- Body -->
         <div class="grid-container">
           <h1 class="main-heading">Course Cart</h1>
-          <div class="align-right grid-block">
-            <ul class="button-group segmented">
-              <li id="calendarButton" class="is-active"><a href="#" onclick="changeView('calendar')"><i class="fa fa-calendar"></i></a></li>
-              <li id="listButton"><a href="#" onclick="changeView('list')"><i class="fa fa-bars"></i></a></li>
-            </ul>
-          </div>
-          <section id="calendarContent">
-            <?php include 'partials/calendarView.php'; ?>
-          </section>
-          <section id="listContent" class="block-list wide hide">
-            <?php include 'partials/listView.php'; ?>
-          </section>
-          <div class="align-right grid-block">
-            <a class="button primary large" href="<?php echo '.?action=checkout'; ?>">CHECKOUT</a>
-          </div>
+          <?php if (!empty($_SESSION['course_cart'])) { ?>
+            <div class="align-right grid-block">
+              <ul class="button-group segmented">
+                <li id="calendarButton" class="is-active"><a href="#" onclick="changeView('calendar')"><i class="fa fa-calendar"></i></a></li>
+                <li id="listButton"><a href="#" onclick="changeView('list')"><i class="fa fa-bars"></i></a></li>
+              </ul>
+            </div>
+            <section id="calendarContent">
+              <?php include 'partials/calendarView.php'; ?>
+            </section>
+            <section id="listContent" class="block-list wide hide">
+              <?php include 'partials/listView.php'; ?>
+            </section>
+            <div class="align-right grid-block">
+              <a class="button primary large" href="<?php echo '.?action=checkout'; ?>">CHECKOUT</a>
+            </div>
+          <?php } else { ?>
+            <h3>Your cart is currently empty. <a href="<?php echo $resultsPage; ?>">Find courses</a>.</h3>
+          <?php } ?>
         </div>
       </div>
     </div>

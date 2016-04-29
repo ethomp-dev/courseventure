@@ -21,7 +21,7 @@
           $startTime = substr($course['time'], 0, 5);
           foreach ($days as $day) {
             if ($day == $slot && $startTime == $currentTime) {
-              echo '<td>'.$course['subject']." ".$course['course'].'</td>';
+              echo '<td><a class="white" href=".?action=display_course_details&courseID='.$item.'">'.$course['subject']." ".$course['course'].'</a></td>';
               $dayFound = true;
             }
           }
@@ -71,7 +71,7 @@
         } else {
           echo '<p class="text-center">*Date and time for<strong> ';
         }
-        echo $course['subject']." ".$course['course'];
+        echo '<a href=".?action=display_course_details&courseID='.$item.'">'.$course['subject']." ".$course['course'].'</a>';
         $numCoursesTBA += 1;
       }
     }

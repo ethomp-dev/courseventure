@@ -7,6 +7,10 @@ body {
   background-size: cover;
 }
 
+a.white {
+  color: white;
+}
+
 a.underline:hover, a.underline:focus {
   text-decoration: underline;
 }

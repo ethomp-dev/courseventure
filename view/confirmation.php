@@ -2,7 +2,9 @@
 	require('../model/database.php');
 	require "../model/courses_db.php";
 	session_start();
-	include 'partials/globalVars.php'; 
+	include 'partials/globalVars.php';
+
+  $registeredCourses = get_registered_course_ids();
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,18 +32,11 @@
 				<div class="grid-container">
 					<table class="table-highlight"><!--Where found-->
 						<tbody>
-							<tr>
-								<td class="cell-large">123456</td>
-							</tr>
-							<tr>
-								<td class="cell-large">123456</td>
-							</tr>
-							<tr>
-								<td class="cell-large">123456</td>
-							</tr>
-							<tr>
-								<td class="cell-large">123456</td>
-							</tr>
+							<?php foreach ($registeredCourses as $registeredCourse) : ?>
+								<tr>
+									<td class="cell-large"><?php echo $registeredCourse['CRN']; ?></td>
+								</tr>
+							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div>

@@ -129,6 +129,7 @@
         header('Location: .');
       }
       break;
+
     case 'add_to_cart':
       $courseID = filter_input(INPUT_GET, "coursesTaughtID");
       if (in_array($courseID, $_SESSION['course_cart'])) {
@@ -159,12 +160,25 @@
       break;
 
     case 'checkout':
-      foreach ($_SESSION['course_cart'] as $item)
-      {
-        addToCart($_SESSION['current_user'], $item);
+      $courseIDs = get_registered_course_ids();
+      $registeredCourseIDs = array();
+      foreach ($courseIDs as $courseID) {
+        $coursesTaughtID = get_courses_taught_id($courseID['CRN']);
+        array_push($registeredCourseIDs, $coursesTaughtID['coursesTaughtID']);
       }
-      
-      header("Location: $confirmationPage");
+      if (!empty($_SESSION['course_cart'])) {
+        $creationDate = date('Y-m-d');
+        foreach ($_SESSION['course_cart'] as $item) {
+          if (!in_array($item, $registeredCourseIDs)) {
+            addToCart($_SESSION['current_user'], $item, $creationDate);
+          }
+          $index = array_search($item, $_SESSION['course_cart']);
+          unset($_SESSION['course_cart'][$index]);
+        }
+        header("Location: $confirmationPage");
+      } else {
+        header("Location: $cartPage");
+      }
       break;
   }
 
