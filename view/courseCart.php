@@ -72,7 +72,7 @@
             <?php include 'partials/listView.php'; ?>
           </section>
           <div class="align-right grid-block">
-            <a class="button primary large" href="<?php echo $confirmationPage; ?>">CHECKOUT</a>
+            <a class="button primary large" href="<?php echo '.?action=checkout'; ?>">CHECKOUT</a>
           </div>
         </div>
       </div>
