@@ -5,6 +5,7 @@
   require('../model/database.php');
   require "../model/accounts_db.php";
   require "../model/courses_db.php";
+  require "../model/cart_db.php";
   include "partials/globalVars.php";
 
   if (!isset ($_SESSION['firstLoad'])) {
@@ -143,6 +144,15 @@
     case 'logout':
       $_SESSION = array();
       session_destroy();
+      break;
+
+    case 'checkout':
+      foreach ($_SESSION['course_cart'] as $item)
+      {
+        addToCart($_SESSION['current_user'], $item);
+      }
+      
+      header("Location: $confirmationPage");
       break;
   }
 

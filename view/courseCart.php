@@ -4,7 +4,7 @@
   session_start();
 
   $cartItems = array();
-
+  
   foreach ($_SESSION['course_cart'] as $item) {
     array_push($cartItems, get_course_details($item));
   }
@@ -40,7 +40,7 @@
             <?php include 'partials/listView.php'; ?>
           </section>
           <div class="align-right grid-block">
-            <a class="button primary large" href="<?php echo $confirmationPage; ?>">CHECKOUT</a>
+            <a class="button primary large" href="<?php echo '.?action=checkout'; ?>">CHECKOUT</a>
           </div>
         </div>
       </div>
