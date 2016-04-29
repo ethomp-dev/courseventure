@@ -402,6 +402,10 @@ input[type="search"].search-large {
   text-align: center;
 }
 
+.delete {
+  color: #f04124;
+}
+
 /* Settings Styles */
 
 #settingsTable {

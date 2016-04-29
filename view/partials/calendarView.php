@@ -59,3 +59,24 @@
     <tr><?php fillCalendarSlots($sixSlots);?></tr>
   </tbody>
 </table>
+
+<div>
+  <?php
+    $numCoursesTBA = 0;
+    foreach ($_SESSION['course_cart'] as $item) {
+      $course = get_course_details($item);
+      if (trim($course['time']) == 'TBA') {
+        if ($numCoursesTBA != 0) {
+          echo ", ";
+        } else {
+          echo '<p class="text-center">*Date and time for<strong> ';
+        }
+        echo $course['subject']." ".$course['course'];
+        $numCoursesTBA += 1;
+      }
+    }
+    if ($numCoursesTBA != 0) {
+      echo ' </strong> is to be announced.</p>';
+    }
+  ?>
+</div>

@@ -73,4 +73,19 @@ function search_courses($query)
 
   }
 
+  function get_courses_taught_id($courseCRN) {
+    global $db;
+
+    $query = 'SELECT coursesTaughtID
+          FROM coursesTaught
+          WHERE CRN = :courseCRN';
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(":courseCRN", $courseCRN);
+    $statement->execute();
+    $coursesTaughtID = $statement->fetch();
+    $statement->closeCursor();
+    return $coursesTaughtID;
+  }
+
 ?>

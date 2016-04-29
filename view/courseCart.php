@@ -3,12 +3,37 @@
   require "../model/courses_db.php";
   session_start();
 
-  $cartItems = array();
+  include 'partials/globalVars.php';
 
+  $cartItems = array();
   foreach ($_SESSION['course_cart'] as $item) {
     array_push($cartItems, get_course_details($item));
   }
-  include 'partials/globalVars.php';
+
+  if (isset($_GET["success"])) {
+    $deletedSuccessful = $_GET["success"];
+  } else {
+    $deletedSuccessful = "";
+  }
+
+  if (isset($_GET['deleted'])) {
+    $lastDeletedCourse = $_GET['deleted'];
+  } else {
+    $lastDeletedCourse = "";
+  }
+
+  function delete_from_cart() {
+    $coursesTaughtID = filter_input(INPUT_GET, "coursesTaughtID");
+
+    $index = array_search($coursesTaughtID, $_SESSION['course_cart']);
+    unset($_SESSION['course_cart'][$index]);
+
+    header("Location: $cartPage?deleted=$coursesTaughtID&success=true");
+	}
+
+	if (isset($_GET['coursesTaughtID'])) {
+		delete_from_cart();
+	}
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,6 +49,13 @@
       <div class="grid-block collapse medium-9 large-10 vertical">
         <!-- Top Bar -->
         <?php include 'partials/topMenu.php'; ?>
+        <!-- Course Deleted Successfully Alert -->
+        <input type="hidden" id="deletedSuccessful" value="<?php echo $deletedSuccessful; ?>"/>
+        <input type="hidden" name="lastDeletedCourse" value="<?php echo $lastDeletedCourse; ?>"/>
+        <div id="deletedFromCart" data-alert class="alert-box success radius hide align-center">
+          Course has been deleted from cart. <a href="<?php echo '.?action=readd_to_cart&coursesTaughtID='.$lastDeletedCourse; ?>">Undo</a>
+          <a href="#" class="close" onclick="closeAlert('deletedFromCart')">&times;</a>
+        </div>
         <!-- Body -->
         <div class="grid-container">
           <h1 class="main-heading">Course Cart</h1>
@@ -49,6 +81,10 @@
     <script>
 
       $(function() {
+        if ($('#deletedSuccessful').val() == 'true') {
+          showAlert('deletedFromCart');
+        }
+
         $('#calendar tbody tr td:not(".time")').each(function() {
           if ($(this).html() != "") {
             $(this).css({'background-color':'rgb(138, 181, 161)', 'color':'white'});

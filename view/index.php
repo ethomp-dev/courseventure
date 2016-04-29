@@ -130,7 +130,6 @@
       break;
     case 'add_to_cart':
       $courseID = filter_input(INPUT_GET, "coursesTaughtID");
-      //$_SESSION['course_cart'] = array();
       if (in_array($courseID, $_SESSION['course_cart'])) {
           echo $courseID." already exists.";
           break;
@@ -138,6 +137,19 @@
       array_push($_SESSION['course_cart'], $courseID);
       $addedSuccessful = true;
       header("Location: $detailsPage");
+      break;
+
+    case 'readd_to_cart':
+      $courseID = filter_input(INPUT_GET, "coursesTaughtID");
+      array_push($_SESSION['course_cart'], $courseID);
+      header("Location: $cartPage");
+      break;
+
+    case 'delete_course':
+      $courseID = filter_input(INPUT_GET, "id");
+      $index = array_search($courseID, $_SESSION['course_cart']);
+      unset($_SESSION['course_cart'][$index]);
+      header("Location: $cartPage");
       break;
 
     case 'logout':

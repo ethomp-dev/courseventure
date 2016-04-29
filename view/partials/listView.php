@@ -3,7 +3,9 @@
     <li><a href="#">
       <strong><?php echo $course['subject']." ".$course['course']." ".$course['title']; ?></strong>
       <span class="block-list-label"><?php echo $course['credits']; ?> HRS</span>
-      <br/><?php echo $course['firstName']." ".$course['middleName']." ".$course['lastName'] ; ?></a></li>
+      <br/><?php echo $course['firstName']." ".$course['middleName']." ".$course['lastName'] ; ?></a>
+      <a href="<?php $id = get_courses_taught_id($course['CRN']); echo "$cartPage?coursesTaughtID=".$id['coursesTaughtID']; ?>"
+        class="text-right"><small class="delete">Delete Course</small></a></li>
   <?php endforeach; ?>
   <li><a href="#">&nbsp;<span class="block-list-label">
     <strong>
