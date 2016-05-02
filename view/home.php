@@ -2,7 +2,7 @@
   require('../model/database.php');
   require "../model/courses_db.php";
   session_start();
-  include 'partials/globalVars.php'; 
+  include 'partials/globalVars.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,6 +17,9 @@
 
       <div class="medium-9 large-10 grid-block vertical">
         <!-- Body -->
+        <span id="logoutIcon">
+          <a href="<?php echo '.?action=logout'; ?>" class="black"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+        </span>
         <div class="grid-container">
           <img class="large-logo" src="<?php echo $pathToImg; ?>courseventure-logo-dark.png" alt="Course Venture"/>
         </div>

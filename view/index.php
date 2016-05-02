@@ -59,6 +59,7 @@
       if ($_SESSION['usernameError'] == "" && $_SESSION['passwordError'] == "") {
         $_SESSION['is_valid_user'] = 'true';
         $_SESSION['current_user'] = $username;
+        $_SESSION['course_cart'] = array();
         header("Location: $homePage");
       } else {
         header("Location: $loginPage");
@@ -101,6 +102,7 @@
         add_account($name, $school, $username, $email, $password);
         $_SESSION['is_valid_user'] = 'true';
         $_SESSION['current_user'] = $username;
+        $_SESSION['course_cart'] = array();
         header("Location: $homePage");
       } else {
         header("Location: $signupPage");
@@ -157,6 +159,15 @@
     case 'logout':
       $_SESSION = array();
       session_destroy();
+      $name = session_name();
+      $expire = strtotime('-1 year');
+      $params = session_get_cookie_params();
+      $path = $params['path'];
+      $domain = $params['domain'];
+      $secure = $params['secure'];
+      $httponly = $params['httponly'];
+      setcookie($name, '', $expire, $path, $domain, $secure, $httponly);
+      header("location: .");
       break;
 
     case 'checkout':

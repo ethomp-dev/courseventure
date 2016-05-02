@@ -11,6 +11,10 @@ a.white {
   color: white;
 }
 
+a.black {
+  color: black;
+}
+
 a.underline:hover, a.underline:focus {
   text-decoration: underline;
 }
@@ -263,6 +267,12 @@ ul#sideMenu-lower-list li a {
   margin-top: 0px;
   margin-left: 15%;
   margin-right: 15%;
+}
+
+#logoutIcon {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 /* Table Styles */

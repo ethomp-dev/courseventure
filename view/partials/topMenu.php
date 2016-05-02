@@ -9,6 +9,9 @@
             <input type="submit" class="fa button light" value="&#xf002;"/>
           </span>
         </label>
+        <span id="logoutIcon">
+          <a href="<?php echo '.?action=logout'; ?>"><i class="fa fa-sign-out fa-2x"></i></a>
+        </span>
       </span>
     </div>
   </div>

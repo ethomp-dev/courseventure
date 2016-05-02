@@ -109,20 +109,39 @@
 
   function get_registered_courses_by_semester($semesterID) {
     global $db;
-    $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location, courses.credits, courses.days, courses.time
-          FROM coursesTaught
-          INNER JOIN courses
-          ON courses.CRN = coursestaught.CRN
-          INNER JOIN enrollment
-          ON enrollment.coursestaughtID = coursestaught.coursesTaughtID
-          WHERE semesterID = :semesterID';
+    $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location,
+                courses.credits, courses.days, courses.time
+              FROM coursesTaught
+              INNER JOIN enrollment
+              ON coursesTaught.coursesTaughtID = enrollment.coursestaughtID
+              INNER JOIN courses
+              ON courses.CRN = coursestaught.CRN
+              WHERE semesterID = :semesterID AND enrollment.userName = :userName';
     $statement = $db->prepare($query);
     $statement->bindValue(":semesterID", $semesterID);
-    //$statement->bindValue(":userName", $_SESSION['current_user']);
+    $statement->bindValue(":userName", $_SESSION['current_user']);
     $statement->execute();
     $coursesBySemester = $statement->fetchAll();
     $statement->closeCursor();
     return $coursesBySemester;
+  }
+
+  function get_registered_courses_by_user() {
+    global $db;
+    $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location,
+                courses.credits, courses.days, courses.time
+              FROM coursesTaught
+              INNER JOIN enrollment
+              ON coursesTaught.coursesTaughtID = enrollment.coursestaughtID
+              INNER JOIN courses
+              ON courses.CRN = coursestaught.CRN
+              WHERE enrollment.userName = :userName';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":userName", $_SESSION['current_user']);
+    $statement->execute();
+    $coursesByUser = $statement->fetchAll();
+    $statement->closeCursor();
+    return $coursesByUser;
   }
 
   function get_semester_ids() {
