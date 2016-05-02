@@ -89,5 +89,42 @@ function search($query)
 	return $statement;
 }
 
+function add_course($CRN, $subject, $course, $section, $credits, $title, $days, $time, $capacity, $location, $teacherID, $semesterID, $firstName, $middleName, $lastName, $email)
+{
+	global $db;
+	$query = "INSERT INTO courses (CRN, subject, course, section, credits, title, days, time, capacity, location)
+				VALUES (:CRN, :subject, :course, :section, :credits, :title, :days, :time, :capacity, :location)";
+	$query2 = "INSERT INTO coursestaught (teacherID, CRN, semesterID) VALUES (:teacherID, :CRN, :semesterID)";
+
+	$query3 = "INSERT INTO teacher (firstName, middleName, lastName, teacherID, email)
+				VALUES (:firstName, :middleName, :lastName, :teacherID, :email)";
+
+	$statement = $db->prepare($query);
+	$statement2 = $db->prepare($query2);
+	$statement3 = $db->prepare($query3);
+	$statement->bindValue(":CRN", $CRN);
+	$statement->bindValue(":subject", $subject);
+	$statement->bindValue(":course", $course);
+	$statement->bindValue(":section", $section);
+	$statement->bindValue(":credits", $credits);
+	$statement->bindValue(":title", $title);
+	$statement->bindValue(":days", $days);
+	$statement->bindValue(":time", $time);
+	$statement->bindValue(":capacity", $capacity);
+	$statement->bindValue(":location", $location);
+	$statement2->bindValue(":teacherID", $teacherID);
+	$statement2->bindValue(":CRN", $CRN);
+	$statement2->bindValue(":semesterID", $semesterID);
+	$statement3->bindValue(":firstName", $firstName);
+	$statement3->bindValue(":middleName", $middleName);
+	$statement3->bindValue(":lastName", $lastName);
+	$statement3->bindValue(":teacherID", $teacherID);
+	$statement3->bindValue(":email", $email);
+	$statement->execute();
+	$statement2->execute();
+	$statement3->execute();
+	return $statement;
+}
+
 
 ?>
