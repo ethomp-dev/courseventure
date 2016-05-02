@@ -126,5 +126,16 @@ function add_course($CRN, $subject, $course, $section, $credits, $title, $days, 
 	return $statement;
 }
 
+function show_all_users()
+{
+	global $db;
+
+	$query = "SELECT * FROM accounts";
+
+	$statement = $db->prepare($query);
+	$statement->execute();
+	return $statement;
+}
+
 
 ?>
