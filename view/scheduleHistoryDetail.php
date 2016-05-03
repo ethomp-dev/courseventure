@@ -64,7 +64,7 @@
         <?php include 'partials/topMenu.php'; ?>
         <!-- Body -->
         <div class="grid-container">
-          <h1 class="main-heading">Spring 2015 Calendar</h1>
+          <h1 class="main-heading">Spring 2016 Calendar</h1>
           <table id="calendar">
             <thead>
               <!--<tr>

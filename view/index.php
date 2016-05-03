@@ -86,6 +86,8 @@
 
       if ($username == '') {
         $_SESSION['usernameError'] = "Please enter a username.";
+      } else if (get_user($username) != "") {
+        $_SESSION['usernameError'] = "Username already exists.";
       } else { $_SESSION['usernameError'] = ""; }
 
       if ($email == '') {
@@ -97,7 +99,8 @@
       } else { $_SESSION['passwordError'] = ""; }
 
       if ($_SESSION['nameError'] == "" && $_SESSION['usernameError'] == "" &&
-          $_SESSION['emailError'] == "" && $_SESSION['passwordError'] == "") {
+          $_SESSION['emailError'] == "" && $_SESSION['passwordError'] == "" &&
+          get_user($username) == "") {
 
         add_account($name, $school, $username, $email, $password);
         $_SESSION['is_valid_user'] = 'true';
