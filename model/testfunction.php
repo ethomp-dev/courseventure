@@ -137,5 +137,71 @@ function show_all_users()
 	return $statement;
 }
 
+function delete_course($CRN)
+{
+	global $db;
+
+	$query = "DELETE FROM courses WHERE CRN = :CRN";
+	$query2 = "DELETE FROM coursestaught WHERE CRN = :CRN";
+
+	$statement = $db->prepare($query);
+	$statement2 = $db->prepare($query2);
+	$statement->bindValue(":CRN", $CRN);
+	$statement2->bindValue(":CRN", $CRN);
+	$statement->execute();
+	$statement2->execute();
+	$statement->closeCursor();
+	$statement2->closeCursor();
+}
+
+function delete_teacher($teacherID)
+{
+	global $db;
+
+	$query = "DELETE FROM teacher WHERE teacherID = :teacherID";
+	$query2 = "DELETE FROM coursestaught WHERE teacherID = :teacherID";
+
+	$statement = $db->prepare($query);
+	$statement2 = $db->prepare($query2);
+	$statement->bindValue(":teacherID", $teacherID);
+	$statement2->bindValue(":teacherID", $teacherID);
+	$statement->execute();
+	$statement2->execute();
+	$statement->closeCursor();
+	$statement2->closeCursor();
+}
+
+
+function update_user($name, $school, $userName,
+        $email, $password) {
+    global $db;
+    $query = 'UPDATE accounts
+              SET name = :name,
+                  school = :school,
+                  userName = :userName,
+                  email = :email,
+                  password = :password,
+              WHERE userName = :userName';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':school', $school);
+    $statement->bindValue(':userName', $userName);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':password', $password);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function delete_user($userName)
+{
+	global $db;
+
+	$query = "DELETE FROM accounts WHERE userName = :userName";
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(":userName", $userName);
+	$statement->execute();
+	return $statement;
+}
 
 ?>
