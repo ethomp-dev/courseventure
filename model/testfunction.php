@@ -204,4 +204,62 @@ function delete_user($userName)
 	return $statement;
 }
 
+function update_course($CRN, $subject, $course, $section,
+        $credits, $title, $days, $time, $capacity, $location, $teaherID, $semesterID, $coursestaughtID,
+        $firstName, $middleName, $lastName, $email) {
+    global $db;
+    $query = 'UPDATE accounts
+              SET CRN = :CRN,
+                  subject = :subject,
+                  course = :course,
+                  section = :section,
+                  credits = :credits,
+                  title = :title,
+                  days = :days,
+                  time = :time,
+                  capacity = :capacity,
+                  location = :location,
+              WHERE CRN = :CRN';
+    $query2 = 'UPDATE coursestaught
+    			SET teacherID = :teacherID
+    				CRN = :CRN,
+    				semesterID = :semesterID,
+    				WHERE coursestaughtID = :coursestaughtID';
+
+    $query3 = 'UPDATE teacher
+    			SET firstName = :firstName,
+    				middleName = :middleName,
+    				lastName = :lastName,
+    				teacherID = teacherID,
+    				email = :email,
+    				WHERE index  = :index';
+    $statement = $db->prepare($query);
+    $statement2 = $db->prepare($query2);
+    $statement3 = $db->prepare($query3);
+    $statement->bindValue(':CRN', $CRN);
+    $statement->bindValue(':subject', $subject);
+    $statement->bindValue(':course', $course);
+    $statement->bindValue(':section', $section);
+    $statement->bindValue(':credits', $credits);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':days', $days);
+    $statement->bindValue(':time', $time);
+    $statement->bindValue(':capacity', $capacity);
+    $statement->bindValue(':location', $location);
+    $statement2->bindValue(':teacherID', $teacherID);
+    $statement2->bindValue(':CRN', $CRN);
+    $statement2->bindValue(':coursestaughtID', $coursestaughtID);
+    $statement3->bindValue(':firstName', $firstName);
+    $statement3->bindValue(':middleName', $middleName);
+    $statement3->bindValue(':lastName', $lastName);
+    $statement3->bindValue(':teacherID', $teacherID);
+    $statement3->bindValue(':email', $email);
+    $statement->execute();
+    $statement2->execute();
+    $statement3->execute();
+    $statement->closeCursor();
+    $statement2->closeCursor();
+    $statement3->closeCursor();
+}
+
 ?>
