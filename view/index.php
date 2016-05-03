@@ -151,7 +151,33 @@
       break;
 
     case 'update_course':
+      $CRN = filter_input(INPUT_POST, 'crn');
+      $subject = filter_input(INPUT_POST, 'subject');
+      $course = filter_input(INPUT_POST, 'course');
+      $credits = filter_input(INPUT_POST, 'credits');
+      $title = filter_input(INPUT_POST, 'title');
+      $days = filter_input(INPUT_POST, 'days');
+      $time = filter_input(INPUT_POST, 'time');
+      $location = filter_input(INPUT_POST, 'location');
+      $teacherID = filter_input(INPUT_POST, 'teacherID');
+      $coursestaughtID = filter_input(INPUT_POST, 'courseID');
+      $firstName = filter_input(INPUT_POST, 'firstName');
+      $middleName = filter_input(INPUT_POST, 'middleName');
+      $lastName = filter_input(INPUT_POST, 'lastName');
 
+      if ($CRN == NULL || $subject == NULL || $course == NULL ||
+        $credits == NULL || $title == NULL || $days == NULL || $time == NULL || $location == NULL ||
+        $teacherID == NULL || $coursestaughtID == NULL || $firstName == NULL || $lastName == NULL) {
+          
+      } else {
+        if ($middleName == NULL) {
+          $middleName = "";
+        }
+        update_course($CRN, $subject, $course,
+          $credits, $title, $days, $time, $location, $teacherID, $coursestaughtID,
+          $firstName, $middleName, $lastName);
+        header("Location: $detailsPage?courseID=$coursestaughtID");
+      }
       break;
 
     case 'delete_course':

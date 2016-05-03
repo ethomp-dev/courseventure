@@ -50,42 +50,46 @@
         <!-- Body -->
         <div class="medium-7 grid-container space-top">
           <h2 class="main-heading">Edit Course Details</h2>
-          <form>
+          <form action="." method="post">
+            <input type="hidden" name="action" value="update_course"/>
+            <input type="hidden" name="crn" value="<?php echo $course['CRN']; ?>"/>
+            <input type="hidden" name="teacherID" value="<?php echo $course['teacherID']; ?>"/>
+            <input type="hidden" name="courseID" value="<?php echo $courseID; ?>"/>
             <div class="grid-block">
               <div class="medium-2 grid-block vertical">
                 <label>Course Prefix</label>
-                <input type="text" value="<?php echo $course['subject']; ?>"/>
+                <input type="text" name="subject" value="<?php echo $course['subject']; ?>"/>
               </div>
               <div class="medium-3 grid-block space-left vertical">
                 <label>Course Number</label>
-                <input type="text" value="<?php echo $course['course']; ?>"/>
+                <input type="text" name="course" value="<?php echo $course['course']; ?>"/>
               </div>
               <div class="grid-block space-left vertical">
                 <label>Course Title</label>
-                <input type="text" value="<?php echo $course['title']; ?>"/>
+                <input type="text" name="title" value="<?php echo $course['title']; ?>"/>
               </div>
             </div>
             <div class="grid-block">
               <div class="grid-block vertical">
                 <label>Instructor Name</label>
-                <input type="text" value="<?php echo $course['firstName']; ?>" placeholder="first"/>
+                <input type="text" name="firstName" value="<?php echo $course['firstName']; ?>" placeholder="first"/>
               </div>
               <div class="grid-block space-left vertical">
                 <label>&nbsp;</label>
-                <input type="text" value="<?php echo $course['middleName']; ?>" placeholder="middle"/>
+                <input type="text" name="middleName" value="<?php echo $course['middleName']; ?>" placeholder="middle"/>
               </div>
               <div class="grid-block space-left vertical">
                 <label>&nbsp;</label>
-                <input type="text" value="<?php echo $course['lastName']; ?>" placeholder="last"/>
+                <input type="text" name="lastName" value="<?php echo $course['lastName']; ?>" placeholder="last"/>
               </div>
               <div class="grid-block space-left vertical">
                 <label>Location</label>
-                <input type="text" value="<?php echo $course['location']; ?>"/>
+                <input type="text" name="location" value="<?php echo $course['location']; ?>"/>
               </div>
               <div class="medium-2 grid-block space-left vertical">
                 <label>Credits</label>
                 <span class="inline-label">
-                  <input type="text" value="<?php echo $course['credits']; ?>"/>
+                  <input type="text" name="credits" value="<?php echo $course['credits']; ?>"/>
                   <span class="form-label">HRS</span>
                 </span>
               </div>
@@ -93,11 +97,11 @@
             <div class="grid-block">
               <div class="medium-2 grid-block vertical">
                 <label>Days</label>
-                <input type="text" value="<?php echo $course['days']; ?>"/>
+                <input type="text" name="days" value="<?php echo $course['days']; ?>"/>
               </div>
               <div class="medium-4 grid-block space-left vertical">
                 <label>Time</label>
-                <input type="text" value="<?php echo $course['time']; ?>"/>
+                <input type="text" name="time" value="<?php echo $course['time']; ?>"/>
               </div>
             </div>
             <div class="align-center grid-block">
