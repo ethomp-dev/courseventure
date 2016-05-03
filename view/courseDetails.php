@@ -80,6 +80,10 @@
               <span>
                 <input type="hidden" name="coursesTaughtID" value="<?php echo $courseID; ?>"/>
                 <input type="submit" class="button secondary large" value="ADD TO CART"/>
+                <?php if ($_SESSION['current_user'] == $admin) { ?>
+                  <a href="<?php echo $detailsEditPage.'?courseID='.$courseID; ?>" class="button primary large">EDIT COURSE</a>
+                  <a href="<?php echo '.?action=delete_course&courseID='.$courseID; ?>" class="button alert large">DELETE</a>
+                <?php } ?>
               </span>
             </form>
           </div>
@@ -107,7 +111,7 @@
         } else if ($('#addedSuccessful').val() == 'false') {
           showAlert('failedToAdd');
         }
-      })
+      });
     </script>
   </body>
 </html>

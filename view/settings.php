@@ -4,7 +4,12 @@
 	require "../model/accounts_db.php";
   require "../model/courses_db.php";
 	include 'partials/globalVars.php';
-	$user = get_user($_SESSION['current_user']);
+
+	if (!isset($_GET['user'])) {
+		$user = get_user($_SESSION['current_user']);
+	} else {
+		$user = get_user($_GET['user']);
+	}
 	$hidden_password=preg_replace("|.|","*",$user['password']);
 
 	function validate() {

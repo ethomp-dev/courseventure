@@ -86,4 +86,23 @@ function update_user($name, $school, $userName, $password, $email) {
 	$statement->closeCursor();
 }
 
+function show_all_users() {
+	global $db;
+	$query = "SELECT * FROM accounts";
+
+	$statement = $db->prepare($query);
+	$statement->execute();
+	return $statement;
+}
+
+function delete_user($userName) {
+	global $db;
+	$query = "DELETE FROM accounts WHERE userName = :userName";
+
+	$statement = $db->prepare($query);
+	$statement->bindValue(":userName", $userName);
+	$statement->execute();
+	return $statement;
+}
+
 ?>

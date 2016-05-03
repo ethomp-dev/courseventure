@@ -24,7 +24,11 @@
         ?>
       </li>
       <hr/>
-      <li><a href="<?php echo '.?action=display_settings' ; ?>"><img src="<?php echo $pathToIcons; ?>user.svg" alt="User"/>&nbsp;MY ACCOUNT</a></li>
+      <?php if ($_SESSION['current_user'] == $admin) { ?>
+        <li><a href="<?php echo '.?action=display_accounts' ; ?>"><img src="<?php echo $pathToIcons; ?>user.svg" alt="User"/>&nbsp;ACCOUNTS</a></li>
+      <?php } else { ?>
+        <li><a href="<?php echo '.?action=display_settings' ; ?>"><img src="<?php echo $pathToIcons; ?>user.svg" alt="User"/>&nbsp;MY ACCOUNT</a></li>
+      <?php } ?>
       <li><a href="<?php echo $userHistoryPage; ?>"><img src="<?php echo $pathToIcons; ?>calendar.svg" alt="Calendar"/>&nbsp;MY CALENDARS</a></li>
       <li><a href="<?php echo $helpPage; ?>"><img src="<?php echo $pathToIcons; ?>help.svg" alt="Help"/>&nbsp;NEED HELP?</a></li>
     </ul>

@@ -2,7 +2,7 @@
   require('../model/database.php');
   require "../model/courses_db.php";
   session_start();
-  
+
   if (isset($_GET["searchInput"]))
   {
     $searchInput = $_GET["searchInput"];
@@ -30,6 +30,11 @@
         <?php include 'partials/topMenu.php'; ?>
         <!-- Body -->
         <div class="grid-container">
+          <?php if ($_SESSION['current_user'] == $admin) { ?>
+            <!--<div class="grid-block align-right space-top">
+              <a class="button primary large radius">ADD COURSE</a>
+            </div>-->
+          <?php } ?>
           <div class="grid-block small-up-3 space-top">
              <?php foreach ($searchResults as $results) : ?>
               <div class="grid-block">

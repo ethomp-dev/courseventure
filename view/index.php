@@ -135,6 +135,32 @@
       }
       break;
 
+    case 'display_accounts':
+      header("Location: $accountsPage");
+      break;
+
+    case 'display_settings_from_user':
+      $user = filter_input(INPUT_POST, 'user');
+      header("Location: $settingsPage?user=$user");
+      break;
+
+    case 'delete_user':
+      $user = filter_input(INPUT_POST, 'user');
+      delete_user($user);
+      header("Location: $accountsPage");
+      break;
+
+    case 'update_course':
+
+      break;
+
+    case 'delete_course':
+      $courseID = filter_input(INPUT_GET, 'courseID');
+      $CRN = get_crn($courseID);
+      delete_course($CRN['CRN']);
+      header("Location: $resultsPage");
+      break;
+
     case 'add_to_cart':
       $courseID = filter_input(INPUT_GET, "coursesTaughtID");
       if (in_array($courseID, $_SESSION['course_cart'])) {
