@@ -206,7 +206,7 @@
   	$statement2->closeCursor();
   }
 
-  function update_course($CRN, $subject, $course,
+ function update_course($CRN, $subject, $course,
           $credits, $title, $days, $time, $location, $teacherID, $coursestaughtID,
           $firstName, $middleName, $lastName) {
       global $db;
@@ -218,25 +218,24 @@
                     title = :title,
                     days = :days,
                     time = :time,
-                    location = :location,
+                    location = :location
                 WHERE CRN = :CRN';
       $query2 = 'UPDATE coursestaught
-      			SET teacherID = :teacherID
-      				CRN = :CRN,
-      				WHERE coursestaughtID = :coursestaughtID';
+            SET teacherID = :teacherID
+              CRN = :CRN
+              WHERE coursestaughtID = :coursestaughtID';
 
       $query3 = 'UPDATE teacher
-      			SET firstName = :firstName,
-      				middleName = :middleName,
-      				lastName = :lastName,
-      				WHERE teacherID  = :teacherID';
+            SET firstName = :firstName,
+              middleName = :middleName,
+              lastName = :lastName
+              WHERE teacherID  = :teacherID';
       $statement = $db->prepare($query);
       $statement2 = $db->prepare($query2);
       $statement3 = $db->prepare($query3);
       $statement->bindValue(':CRN', $CRN);
       $statement->bindValue(':subject', $subject);
       $statement->bindValue(':course', $course);
-      $statement->bindValue(':section', $section);
       $statement->bindValue(':credits', $credits);
       $statement->bindValue(':title', $title);
       $statement->bindValue(':days', $days);
