@@ -6,6 +6,7 @@
       $threeSlots = array('03:30','M','T','W','R','F');
       $fiveSlots = array('05:00','M','T','W','R','F');
       $sixSlots = array('06:30','M','T','W','R','F');
+      $eightPMSlots = array('08:00','M','T','W','R','F');
 
   function fillCalendarSlots($timeSlots) {
     foreach ($timeSlots as $slot) {
@@ -18,10 +19,17 @@
         foreach ($_SESSION['course_cart'] as $item) {
           $course = get_course_details($item);
           $days = str_split($course['days']);
-          $startTime = substr($course['time'], 0, 5);
+          $startTime = substr($course['startTime'], 0, 5);
+          $endTime = substr($course['endTime'], 0, 5);
           foreach ($days as $day) {
             if ($day == $slot && $startTime == $currentTime) {
-              echo '<td><a class="white" href=".?action=display_course_details&courseID='.$item.'">'.$course['subject']." ".$course['course'].'</a></td>';
+              $startTime = strtotime($startTime);
+              $endTime = strtotime($endTime);
+              if (($endTime - $startTime) > '4500') {
+                echo '<td class="double-slot"><a class="white" href=".?action=display_course_details&courseID='.$item.'">'.$course['subject']." ".$course['course'].'</a></td>';
+              } else {
+                echo '<td><a class="white" href=".?action=display_course_details&courseID='.$item.'">'.$course['subject']." ".$course['course'].'</a></td>';
+              }
               $dayFound = true;
             }
           }
@@ -57,6 +65,7 @@
     <tr><?php fillCalendarSlots($threeSlots);?></tr>
     <tr><?php fillCalendarSlots($fiveSlots);?></tr>
     <tr><?php fillCalendarSlots($sixSlots);?></tr>
+    <tr><?php fillCalendarSlots($eightPMSlots);?></tr>
   </tbody>
 </table>
 
@@ -65,7 +74,7 @@
     $numCoursesTBA = 0;
     foreach ($_SESSION['course_cart'] as $item) {
       $course = get_course_details($item);
-      if (trim($course['time']) == 'TBA') {
+      if (trim($course['startTime']) == 'TBA') {
         if ($numCoursesTBA != 0) {
           echo ", ";
         } else {

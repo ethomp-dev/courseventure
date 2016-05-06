@@ -58,11 +58,11 @@
             <div class="grid-block">
               <div class="medium-2 grid-block vertical">
                 <label>Course Prefix</label>
-                <input type="text" name="subject" value="<?php echo $course['subject']; ?>"/>
+                <input type="text" name="subject" value="<?php echo $course['subject']; ?>" maxlength="4"/>
               </div>
               <div class="medium-3 grid-block space-left vertical">
                 <label>Course Number</label>
-                <input type="text" name="course" value="<?php echo $course['course']; ?>"/>
+                <input type="text" name="course" value="<?php echo $course['course']; ?>" maxlength="4"/>
               </div>
               <div class="grid-block space-left vertical">
                 <label>Course Title</label>
@@ -89,7 +89,7 @@
               <div class="medium-2 grid-block space-left vertical">
                 <label>Credits</label>
                 <span class="inline-label">
-                  <input type="text" name="credits" value="<?php echo $course['credits']; ?>"/>
+                  <input type="text" name="credits" value="<?php echo $course['credits']; ?>" maxlength="1"/>
                   <span class="form-label">HRS</span>
                 </span>
               </div>
@@ -99,9 +99,13 @@
                 <label>Days</label>
                 <input type="text" name="days" value="<?php echo $course['days']; ?>"/>
               </div>
-              <div class="medium-4 grid-block space-left vertical">
-                <label>Time</label>
-                <input type="text" name="time" value="<?php echo $course['time']; ?>"/>
+              <div class="medium-3 grid-block space-left vertical">
+                <label>Start Time</label>
+                <input type="text" name="startTime" value="<?php echo $course['startTime']; ?>"/>
+              </div>
+              <div class="medium-3 grid-block space-left vertical">
+                <label>End Time</label>
+                <input type="text" name="endTime" value="<?php echo $course['endTime']; ?>"/>
               </div>
             </div>
             <div class="align-center grid-block">

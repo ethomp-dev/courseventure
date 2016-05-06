@@ -32,7 +32,7 @@
           $coursesTaughtID = get_courses_taught_id($item['CRN']);
           $course = get_course_details($coursesTaughtID['coursesTaughtID']);
           $days = str_split($course['days']);
-          $startTime = substr($course['time'], 0, 5);
+          $startTime = substr($course['startTime'], 0, 5);
           foreach ($days as $day) {
             if ($day == $slot && $startTime == $currentTime) {
               echo '<td><a class="white" href=".?action=display_course_details&courseID='.$coursesTaughtID['coursesTaughtID'].'">'.$course['subject']." ".$course['course'].'</td>';
@@ -97,7 +97,7 @@
               foreach ($semesterCourses as $item) {
                 $coursesTaughtID = get_courses_taught_id($item['CRN']);
                 $course = get_course_details($coursesTaughtID['coursesTaughtID']);
-                if (trim($course['time']) == 'TBA') {
+                if (trim($course['startTime']) == 'TBA') {
                   if ($numCoursesTBA != 0) {
                     echo ", ";
                   } else {

@@ -157,7 +157,8 @@
       $credits = filter_input(INPUT_POST, 'credits');
       $title = filter_input(INPUT_POST, 'title');
       $days = filter_input(INPUT_POST, 'days');
-      $time = filter_input(INPUT_POST, 'time');
+      $startTime = filter_input(INPUT_POST, 'startTime');
+      $endTime = filter_input(INPUT_POST, 'endTime');
       $location = filter_input(INPUT_POST, 'location');
       $teacherID = filter_input(INPUT_POST, 'teacherID');
       $coursestaughtID = filter_input(INPUT_POST, 'courseID');
@@ -165,16 +166,16 @@
       $middleName = filter_input(INPUT_POST, 'middleName');
       $lastName = filter_input(INPUT_POST, 'lastName');
 
-      if ($CRN == NULL || $subject == NULL || $course == NULL ||
-        $credits == NULL || $title == NULL || $days == NULL || $time == NULL || $location == NULL ||
-        $teacherID == NULL || $coursestaughtID == NULL || $firstName == NULL || $lastName == NULL) {
-          
+      if ($CRN == NULL || $subject == NULL || $course == NULL || $credits == NULL || $title == NULL ||
+        $days == NULL || $startTime == NULL || $endTime == NULL || $location == NULL || $teacherID == NULL ||
+        $coursestaughtID == NULL || $firstName == NULL || $lastName == NULL) {
+
       } else {
         if ($middleName == NULL) {
           $middleName = "";
         }
         update_course($CRN, $subject, $course,
-          $credits, $title, $days, $time, $location, $teacherID, $coursestaughtID,
+          $credits, $title, $days, $startTime, $endTime, $location, $teacherID, $coursestaughtID,
           $firstName, $middleName, $lastName);
         header("Location: $detailsPage?courseID=$coursestaughtID");
       }

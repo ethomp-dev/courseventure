@@ -97,7 +97,7 @@
         <div class="small-offset-1 grid-block shrink">
           <ul>
             <li>meets on <span class="text-secondary"><?php echo $course['days']; ?></span>
-              from <span class="text-secondary"><?php echo $course['time']; ?></span></li>
+              from <span class="text-secondary"><?php echo $course['startTime']." - ".$course['endTime']; ?></span></li>
             <li>CRN is <span class="text-secondary"><?php echo $course['CRN']; ?></span></li>
           <ul>
         </div>

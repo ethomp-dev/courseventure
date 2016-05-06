@@ -47,7 +47,7 @@
 
   function get_course_details($courseID) {
     global $db;
-    $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location, courses.credits, courses.days, courses.time, teacher.firstName, teacher.middleName, teacher.lastName, teacher.email, teacher.teacherID
+    $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location, courses.credits, courses.days, courses.startTime, courses.endTime, teacher.firstName, teacher.middleName, teacher.lastName, teacher.email, teacher.teacherID
           FROM coursesTaught
           INNER JOIN courses
           ON courses.CRN = coursestaught.CRN
@@ -125,7 +125,7 @@
   function get_registered_courses_by_semester($semesterID) {
     global $db;
     $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location,
-                courses.credits, courses.days, courses.time
+                courses.credits, courses.days, courses.startTime, courses.endTime
               FROM coursesTaught
               INNER JOIN enrollment
               ON coursesTaught.coursesTaughtID = enrollment.coursestaughtID
@@ -144,7 +144,7 @@
   function get_registered_courses_by_user() {
     global $db;
     $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location,
-                courses.credits, courses.days, courses.time
+                courses.credits, courses.days, courses.startTime, courses.endTime
               FROM coursesTaught
               INNER JOIN enrollment
               ON coursesTaught.coursesTaughtID = enrollment.coursestaughtID
@@ -207,7 +207,7 @@
   }
 
  function update_course($CRN, $subject, $course,
-          $credits, $title, $days, $time, $location, $teacherID, $coursestaughtID,
+          $credits, $title, $days, $startTime, $endTime, $location, $teacherID, $coursestaughtID,
           $firstName, $middleName, $lastName) {
       global $db;
       $query = 'UPDATE courses
@@ -217,7 +217,8 @@
                     credits = :credits,
                     title = :title,
                     days = :days,
-                    time = :time,
+                    startTime = :startTime,
+                    endTime = :endTime,
                     location = :location
                 WHERE CRN = :CRN';
       $query2 = 'UPDATE coursestaught
@@ -239,7 +240,8 @@
       $statement->bindValue(':credits', $credits);
       $statement->bindValue(':title', $title);
       $statement->bindValue(':days', $days);
-      $statement->bindValue(':time', $time);
+      $statement->bindValue(':startTime', $startTime);
+      $statement->bindValue(':endTime', $endTime);
       $statement->bindValue(':location', $location);
       $statement2->bindValue(':teacherID', $teacherID);
       $statement2->bindValue(':CRN', $CRN);

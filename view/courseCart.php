@@ -110,6 +110,23 @@
             break;
         }
       }
+
+      $('#calendar tr td.double-slot').each(function() {
+        var $doubleSlot = $(this),
+            col   = $doubleSlot.index(),
+            row   = $doubleSlot.closest('tr').index();
+
+        $('#calendar tr td').each(function() {
+          var $this = $(this),
+              colNew= $this.index(),
+              rowNew= $this.closest('tr').index();
+
+          if (colNew == col && rowNew == (row + 1)) {
+            $this.html('<a href="' + $doubleSlot.find('a').attr('href') + '">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+            $this.css({'background-color':'rgb(138, 181, 161)', 'color':'white'});
+          }
+        });
+      });
     </script>
   </body>
 </html>
