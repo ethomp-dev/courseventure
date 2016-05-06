@@ -29,7 +29,7 @@ CREATE DATABASE courseventure;
 USE courseventure;
 
 CREATE TABLE `accounts` (
-  `name` varchar(9) NOT NULL,
+  `name` varchar(34) NOT NULL,
   `school` varchar(34) NOT NULL,
   `userName` varchar(34) NOT NULL,
   `email` varchar(34) NOT NULL,
