@@ -19,6 +19,7 @@
   $threeSlots = array('03:30','M','T','W','R','F');
   $fiveSlots = array('05:00','M','T','W','R','F');
   $sixSlots = array('06:30','M','T','W','R','F');
+  $eightPMSlots = array('08:00','M','T','W','R','F');
 
   function fillCalendarSlots($timeSlots, $semesterCourses) {
     foreach ($timeSlots as $slot) {
@@ -33,9 +34,16 @@
           $course = get_course_details($coursesTaughtID['coursesTaughtID']);
           $days = str_split($course['days']);
           $startTime = substr($course['startTime'], 0, 5);
+          $endTime = substr($course['endTime'], 0, 5);
           foreach ($days as $day) {
             if ($day == $slot && $startTime == $currentTime) {
-              echo '<td><a class="white" href=".?action=display_course_details&courseID='.$coursesTaughtID['coursesTaughtID'].'">'.$course['subject']." ".$course['course'].'</td>';
+              $startTime = strtotime($startTime);
+              $endTime = strtotime($endTime);
+              if (($endTime - $startTime) > '4500') {
+                echo '<td class="double-slot"><a class="white" href=".?action=display_course_details&courseID='.$coursesTaughtID['coursesTaughtID'].'">'.$course['subject']." ".$course['course'].'</td>';
+              } else {
+                echo '<td><a class="white" href=".?action=display_course_details&courseID='.$coursesTaughtID['coursesTaughtID'].'">'.$course['subject']." ".$course['course'].'</td>';
+              }
               $dayFound = true;
             }
           }
@@ -88,6 +96,7 @@
               <tr><?php fillCalendarSlots($threeSlots, $semesterCourses);?></tr>
               <tr><?php fillCalendarSlots($fiveSlots, $semesterCourses);?></tr>
               <tr><?php fillCalendarSlots($sixSlots, $semesterCourses);?></tr>
+              <tr><?php fillCalendarSlots($eightPMSlots, $semesterCourses);?></tr>
             </tbody>
           </table>
 
@@ -124,6 +133,23 @@
         $('#calendar tbody tr td:not(".time")').each(function() {
           if ($(this).html() != "") {
             $(this).css({'background-color':'rgb(138, 181, 161)', 'color':'white'});
+          }
+        });
+      });
+
+      $('#calendar tr td.double-slot').each(function() {
+        var $doubleSlot = $(this),
+            col   = $doubleSlot.index(),
+            row   = $doubleSlot.closest('tr').index();
+
+        $('#calendar tr td').each(function() {
+          var $this = $(this),
+              colNew= $this.index(),
+              rowNew= $this.closest('tr').index();
+
+          if (colNew == col && rowNew == (row + 1)) {
+            $this.html('<a href="' + $doubleSlot.find('a').attr('href') + '">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+            $this.css({'background-color':'rgb(138, 181, 161)', 'color':'white'});
           }
         });
       });
