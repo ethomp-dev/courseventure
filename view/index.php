@@ -169,7 +169,7 @@
       if ($CRN == NULL || $subject == NULL || $course == NULL || $credits == NULL || $title == NULL ||
         $days == NULL || $startTime == NULL || $endTime == NULL || $location == NULL || $teacherID == NULL ||
         $coursestaughtID == NULL || $firstName == NULL || $lastName == NULL) {
-
+          printf('Error while updating course. Please go back and fill in any blank fields.');
       } else {
         if ($middleName == NULL) {
           $middleName = "";
