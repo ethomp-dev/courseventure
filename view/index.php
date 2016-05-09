@@ -52,7 +52,7 @@
 
       if ($password == '') {
         $_SESSION['passwordError'] = "Please enter a password.";
-      } else if ($account_credentials[0] == "" || $account_credentials[1] == "") {
+      } else if ($account_credentials != $password) {
         $_SESSION['passwordError'] = "Incorrect password.";
       }
 

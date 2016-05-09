@@ -48,7 +48,7 @@
   function get_course_details($courseID) {
     global $db;
     $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location, courses.credits, courses.days, courses.startTime, courses.endTime, teacher.firstName, teacher.middleName, teacher.lastName, teacher.email, teacher.teacherID
-          FROM coursesTaught
+          FROM coursestaught
           INNER JOIN courses
           ON courses.CRN = coursestaught.CRN
           INNER JOIN teacher
@@ -65,7 +65,7 @@
   function get_crn($courseID) {
     global $db;
     $query = 'SELECT courses.CRN
-          FROM coursesTaught
+          FROM coursestaught
           INNER JOIN courses
           ON courses.CRN = coursestaught.CRN
           WHERE coursestaughtID = :courseID';
@@ -80,7 +80,7 @@
   function get_courses_taught_id($courseCRN) {
     global $db;
     $query = 'SELECT coursesTaughtID
-          FROM coursesTaught
+          FROM coursestaught
           WHERE CRN = :courseCRN';
     $statement = $db->prepare($query);
     $statement->bindValue(":courseCRN", $courseCRN);
@@ -92,8 +92,8 @@
 
   function get_registered_course_ids() {
     global $db;
-    $query = 'SELECT coursesTaught.CRN
-          FROM coursesTaught
+    $query = 'SELECT coursestaught.CRN
+          FROM coursestaught
           INNER JOIN enrollment
           ON enrollment.coursestaughtID = coursestaught.coursesTaughtID
           WHERE userName = :userName';
@@ -108,7 +108,7 @@
   function get_registered_course_details() {
     global $db;
     $query = 'SELECT *
-          FROM coursesTaught
+          FROM coursestaught
           INNER JOIN enrollment
           ON enrollment.coursestaughtID = coursestaught.coursesTaughtID
           INNER JOIN courses
@@ -126,9 +126,9 @@
     global $db;
     $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location,
                 courses.credits, courses.days, courses.startTime, courses.endTime
-              FROM coursesTaught
+              FROM coursestaught
               INNER JOIN enrollment
-              ON coursesTaught.coursesTaughtID = enrollment.coursestaughtID
+              ON coursestaught.coursesTaughtID = enrollment.coursestaughtID
               INNER JOIN courses
               ON courses.CRN = coursestaught.CRN
               WHERE semesterID = :semesterID AND enrollment.userName = :userName';
@@ -145,9 +145,9 @@
     global $db;
     $query = 'SELECT courses.CRN, courses.course, courses.subject, courses.title, courses.location,
                 courses.credits, courses.days, courses.startTime, courses.endTime
-              FROM coursesTaught
+              FROM coursestaught
               INNER JOIN enrollment
-              ON coursesTaught.coursesTaughtID = enrollment.coursestaughtID
+              ON coursestaught.coursesTaughtID = enrollment.coursestaughtID
               INNER JOIN courses
               ON courses.CRN = coursestaught.CRN
               WHERE enrollment.userName = :userName';
@@ -162,7 +162,7 @@
   function get_semester_ids() {
     global $db;
     $query = 'SELECT semesterID
-          FROM coursesTaught
+          FROM coursestaught
           INNER JOIN enrollment
           ON enrollment.coursestaughtID = coursestaught.coursesTaughtID
           INNER JOIN courses
@@ -180,7 +180,7 @@
     global $db;
     $query = 'SELECT dateCreated
           FROM enrollment
-          INNER JOIN coursesTaught
+          INNER JOIN coursestaught
           ON enrollment.coursestaughtID = coursestaught.coursesTaughtID
           WHERE coursestaught.coursestaughtID = :courseID';
     $statement = $db->prepare($query);

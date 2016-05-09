@@ -3,7 +3,7 @@
   $siteTitle = "Course Venture";
 
   // Admin userName
-  $admin = "testUser";
+  $admin = "admin";
 
   // Page Names
   $gmailsample = "gmail-sample.php";

@@ -2,7 +2,7 @@
 
 function add_account($name, $school, $userName, $email, $password) {
 	global $db;
-	$query = 'INSERT INTO Accounts
+	$query = 'INSERT INTO accounts
 				(name, school, userName, email, password)
 				VALUES
 				(:name, :school, :userName, :email, :password)';
@@ -19,7 +19,7 @@ function add_account($name, $school, $userName, $email, $password) {
 
 function delete_account($userName) {
 	global $db;
-	$query = 'DELETE FROM Accounts
+	$query = 'DELETE FROM accounts
 				WHERE userName = :userName';
 	$statement = $db->prepare($query);
 	$statement->bindValue(':userName', $userName);
@@ -42,23 +42,20 @@ function get_user($username) {
 
 function validate_account($userName) {
 	global $db;
-	$query = 'SELECT * FROM Accounts
+	$query = 'SELECT password FROM accounts
 				WHERE userName = :userName';
 
 	$statement = $db->prepare($query);
 	$statement->bindValue(':userName', $userName);
 	$statement->execute();
-	$id = $statement->fetch();
+	$creds = $statement->fetch();
 	$statement->closeCursor();
-	$userName = $id['userName'];
-	$password = $id['password'];
-	$result = array($userName, $password);
-	return $result;
+	return $creds;
 }
 
 function get_user_email($email) {
 	global $db;
-	$query = 'SELECT email FROM Accounts
+	$query = 'SELECT email FROM accounts
 					WHERE email = :email';
 	$statement = $db ->prepare($query);
 	$statement->execute();
