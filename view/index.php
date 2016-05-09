@@ -48,12 +48,16 @@
         $_SESSION['usernameError'] = "Please enter a username.";
       } else if (get_user($username) == '') {
         $_SESSION['usernameError'] = "Username does not exist.";
+      } else {
+        $_SESSION['usernameError'] = "";
       }
 
       if ($password == '') {
         $_SESSION['passwordError'] = "Please enter a password.";
-      } else if ($account_credentials != $password) {
+      } else if ($account_credentials['password'] != $password) {
         $_SESSION['passwordError'] = "Incorrect password.";
+      } else {
+        $_SESSION['passwordError'] = "";
       }
 
       if ($_SESSION['usernameError'] == "" && $_SESSION['passwordError'] == "") {

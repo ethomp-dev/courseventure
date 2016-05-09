@@ -13,14 +13,20 @@
 	$hidden_password=preg_replace("|.|","*",$user['password']);
 
 	function validate() {
-		$user = get_user($_SESSION['current_user']);
+		$user = get_user($_POST['user']);
 		$name = filter_input(INPUT_POST, 'name');
 		$school = filter_input(INPUT_POST, 'school');
 		$username = $user['userName'];
 		$email = filter_input(INPUT_POST, 'email');
 		$password = filter_input(INPUT_POST, 'password');
 		update_user($name, $school, $username, $password, $email);
-		header("Location: settings.php");
+
+		if ($_SESSION['current_user'] != "admin") {
+			header("Location: settings.php");
+		} else {
+			header("Location: accounts.php");
+		}
+
 	}
 
 	if (isset($_POST['finishedEditing'])) {
@@ -46,6 +52,7 @@
 					<h1 class="main-heading">Account Settings</h1>
 					<form action="<?php echo $settingsPage; ?>" method="post">
 						<input type="hidden" name="finishedEditing" value="true"/>
+						<input type="hidden" name="user" value="<?php echo $user['userName']; ?>"/>
 						<table id="settingsTable">
 							<tr>
 								<td width="200px"><strong>Name</strong></td>
